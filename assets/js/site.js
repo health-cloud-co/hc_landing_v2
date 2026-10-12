@@ -113,75 +113,7 @@
   function initModes() {
     $$('[data-modes]').forEach(initModeRoot);
   }
-  function initModeRoot(root) {
-    if ($('[data-mode-track]', root)) return initModeSlides(root);
-    var btns = $$('.seg-tabs button', root), ind = $('[data-seg-ind]', root), panels = $$('.tab-panel', root);
-    var screen = $('[data-mode-shots]', root), shots = $$('.mode-shot', root);
-    var ctrl = $('[data-mode-ctrl]', root), dots = $('[data-mode-dots]', root);
-    var items = $$('.item-grid .item', root);
-    var mq = window.matchMedia('(max-width: 759px)');
-    var tab = 0, idx = 0, cur = null, sx = null;
-
-    function shotsOf(t) { return shots.filter(function (s) { return +s.getAttribute('data-tab') === t; }); }
-    function render() {
-      btns.forEach(function (b, k) { b.classList.toggle('active', k === tab); b.setAttribute('aria-selected', k === tab ? 'true' : 'false'); });
-      if (ind && btns.length) ind.style.left = 'calc(5px + (100% - 10px) * ' + (tab / btns.length) + ')';
-      panels.forEach(function (p, k) { p.classList.toggle('active', k === tab); });
-      var list = shotsOf(tab);
-      if (idx >= list.length) idx = 0;
-      shots.forEach(function (s) { s.classList.remove('active'); s.style.transform = ''; s.style.transition = ''; });
-      if (list[idx]) list[idx].classList.add('active');
-      if (ctrl) ctrl.hidden = list.length < 2;
-      if (dots) dots.innerHTML = list.map(function (_, k) { return '<span class="' + (k === idx ? 'active' : '') + '"></span>'; }).join('');
-      if (screen) screen.classList.toggle('static', list.length < 2);
-    }
-    function go(n) { var len = shotsOf(tab).length; if (!len) return; idx = (n + len) % len; render(); }
-    function closeItems() { items.forEach(function (it) { it.classList.remove('open'); var em = $('em', it); if (em) em.textContent = '+'; }); }
-
-    btns.forEach(function (b, k) { b.addEventListener('click', function () { tab = k; idx = 0; closeItems(); render(); }); });
-    var prev = $('[data-mode-prev]', root), next = $('[data-mode-next]', root);
-    if (prev) prev.addEventListener('click', function () { go(idx - 1); });
-    if (next) next.addEventListener('click', function () { go(idx + 1); });
-
-    if (screen) {
-      screen.addEventListener('dragstart', function (e) { e.preventDefault(); });
-      screen.addEventListener('pointerdown', function (e) {
-        if (shotsOf(tab).length < 2 || (e.pointerType === 'mouse' && e.button !== 0)) return;
-        sx = e.clientX; cur = shotsOf(tab)[idx];
-        try { screen.setPointerCapture(e.pointerId); } catch (_) {}
-        screen.classList.add('dragging');
-        if (cur) cur.style.transition = 'none';
-      });
-      screen.addEventListener('pointermove', function (e) {
-        if (sx === null) return;
-        var dx = Math.max(-120, Math.min(120, e.clientX - sx));
-        if (cur) cur.style.transform = 'translateX(' + dx + 'px)';
-      });
-      var end = function (e) {
-        if (sx === null) return;
-        var dx = e.clientX - sx; sx = null;
-        screen.classList.remove('dragging');
-        if (cur) { cur.style.transition = ''; cur.style.transform = ''; }
-        if (dx < -40) go(idx + 1); else if (dx > 40) go(idx - 1);
-      };
-      screen.addEventListener('pointerup', end);
-      screen.addEventListener('pointercancel', function () { sx = null; screen.classList.remove('dragging'); if (cur) { cur.style.transition = ''; cur.style.transform = ''; } });
-    }
-
-    items.forEach(function (it) {
-      var head = $('.item-head', it);
-      if (!head) return;
-      head.addEventListener('click', function () {
-        if (!mq.matches) return;
-        var open = it.classList.contains('open');
-        closeItems();
-        if (!open) { it.classList.add('open'); var em = $('em', it); if (em) em.textContent = '−'; }
-      });
-    });
-    if (mq.addEventListener) mq.addEventListener('change', closeItems); else if (mq.addListener) mq.addListener(closeItems);
-
-    render();
-  }
+  function initModeRoot(root) { initModeSlides(root); }
 
   /* 3-in-1 slides: horizontal snap track, per-slide phone with auto-advancing shots */
   function initModeSlides(root) {

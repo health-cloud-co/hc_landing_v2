@@ -55,22 +55,12 @@
         <p class="lead light">병원용 광학현미경에 의존하던 모세혈관 관찰을 휴대용 기기와 온디바이스 AI로 일상의 웰니스 영역으로 확장합니다.<br>손끝 모세혈관에서 다섯 가지 지표를 점수화하고, 생활습관 문진과 교차해 웰니스 유형과 코칭을 제공합니다.</p>
         <button type="button" class="btn white sm" data-open-inquiry="모세혈관으로 보는 웰니스">도입 문의 <span>→</span></button>
       </div>
-      <div class="slider" data-slider>
+      <div class="slider single" data-slider>
         <div class="slider-frame">
           <div class="slider-stack">
-            <div class="ghost g1"></div><div class="ghost g2"></div>
             <div class="slider-view">
-              <div class="slide active"><img src="assets/img/hero-carna.jpg" alt="손톱주름 모세혈관 측정 기기 CARNA에 손가락을 올린 모습"><span class="caption">CARNA 모세혈관 측정 기기</span></div>
-              <div class="slide"><img src="assets/img/hero-capillyzer-app.jpg" alt="Capillyzer 앱의 분석 홈, 촬영, 분석 결과 화면"><span class="caption">Capillyzer 앱 화면</span></div>
-              <div class="slide"><img src="assets/img/capillary-sample.jpg" alt="손톱주름 모세혈관 확대 이미지"><span class="caption">손톱주름 모세혈관 이미지</span></div>
+              <div class="slide active"><img src="assets/img/hero-wellness.jpg" alt="CARNA 모세혈관 측정 기기와 Capillyzer 앱 분석 화면"><span class="caption">CARNA 기기 · Capillyzer 앱</span></div>
             </div>
-          </div>
-        </div>
-        <div class="slider-ctrl">
-          <div class="slider-dots"><span class="slider-counter">01 / 03</span></div>
-          <div class="slider-arrows">
-            <button type="button" data-prev aria-label="이전">←</button>
-            <button type="button" data-next aria-label="다음">→</button>
           </div>
         </div>
       </div>
@@ -94,39 +84,37 @@
           <h2 class="h-section">생활습관의 변화는<br>모세혈관에 먼저 나타납니다</h2>
         </div>
       </div>
-      <div class="mode-wrap">
-        <div class="mode-phone-col">
-          <div class="phone">
-            <div class="phone-screen" data-mode-shots>
-              <!-- 앱 화면 이미지: 플레이스홀더를 <div class="mode-shot" data-tab="0"><img src="assets/img/파일명" alt=""></div> 로 교체 (세로 9:19.5 권장) -->
-              <div class="mode-shot active" data-tab="0"><img src="assets/img/capillary-sample.jpg" alt="손톱주름 모세혈관 루프의 확대 이미지"></div>
-              <div class="mode-shot ph" data-tab="0">앱 화면 2</div>
-              <div class="mode-shot ph" data-tab="0">앱 화면 3</div>
-              <span class="notch" aria-hidden="true"></span>
+      <!-- 앱 화면 이미지: 플레이스홀더를 <div class="mode-shot"><img src="assets/img/app/파일명" alt=""></div> 로 교체. 세로로 긴 이미지는 화면 안에서 스크롤됨 (가로 720px 권장). 이미지가 2장 이상이면 자동 전환 -->
+      <div class="mode-track" data-mode-track>
+        <article class="mode-slide active" data-slide="0">
+          <div class="mode-phone-col">
+            <div class="phone">
+              <div class="phone-screen" data-phone>
+                <div class="mode-shot active"><img src="assets/img/capillary-sample.jpg" alt="손톱주름 모세혈관 루프의 확대 이미지" draggable="false"></div>
+                <div class="mode-shot ph">앱 화면 2</div>
+                <div class="mode-shot ph">앱 화면 3</div>
+                <span class="notch" aria-hidden="true"></span>
+                <span class="mode-sb" data-mode-sb hidden aria-hidden="true"><i></i></span>
+              </div>
             </div>
+            <div class="mode-segs" data-mode-segs></div>
           </div>
-          <div class="mode-ctrl" data-mode-ctrl>
-            <button type="button" data-mode-prev aria-label="이전 이미지">←</button>
-            <div class="mode-dots" data-mode-dots></div>
-            <button type="button" data-mode-next aria-label="다음 이미지">→</button>
-          </div>
-        </div>
-        <div class="mode-card">
+          <div class="mode-card">
           <p class="lead">손톱주름은 모세혈관 루프가 피부 표면과 수평으로 배열된 유일한 부위입니다. 피부를 절개하지 않고도 혈관의 형태와 혈류를 그대로 관찰할 수 있어 "인체의 생체창"이라 불립니다. 미세순환은 생활습관 교정에 4~8주 안에 반응합니다.</p>
-          <div class="list-stack">
-            <div><i style="background:#E8391D"></i>전신 혈관망의 80~95%를 차지하는 미세순환을 직접 관찰</div>
-            <div><i style="background:#FFD400"></i>체성분 분석은 최소 3개월, 모세혈관은 4~8주면 변화 확인</div>
+              <div class="list-stack">
+                <div><i style="background:#E8391D"></i>전신 혈관망의 80~95%를 차지하는 미세순환을 직접 관찰</div>
+                <div><i style="background:#FFD400"></i>체성분 분석은 최소 3개월, 모세혈관은 4~8주면 변화 확인</div>
+              </div>
+              <div class="k">진행 순서</div>
+              <div class="item-grid">
+                <div class="item"><button type="button" class="item-head"><b>01 촬영</b><em aria-hidden="true">+</em></button><span class="desc">손가락을 CARNA에 올리면 자동 초점으로 손톱주름 모세혈관을 촬영합니다. 오일 도포 없는 비침습 교차 편광 광학계 · 200배율.</span></div>
+                <div class="item"><button type="button" class="item-head"><b>02 생활습관 문진</b><em aria-hidden="true">+</em></button><span class="desc">심리 · 수면 · 신체활동 · 영양 · 음주 · 흡연 여섯 영역을 공인 설문으로 함께 기록합니다.</span></div>
+                <div class="item"><button type="button" class="item-head"><b>03 온디바이스 AI 분석</b><em aria-hidden="true">+</em></button><span class="desc">네트워크 없이 기기 안에서 모세혈관 5대 지표를 점수화하고, 생활습관 점수와 교차합니다.</span></div>
+                <div class="item"><button type="button" class="item-head"><b>04 유형 · 코칭</b><em aria-hidden="true">+</em></button><span class="desc">9개 웰니스 유형 중 현재 위치와 유형별 코칭을 상담 자리에서 바로 보여 줍니다.</span></div>
+              </div>
           </div>
-          <div class="k">진행 순서</div>
-          <div class="item-grid">
-            <div class="item"><button type="button" class="item-head"><b>01 촬영</b><em aria-hidden="true">+</em></button><span class="desc">손가락을 CARNA에 올리면 자동 초점으로 손톱주름 모세혈관을 촬영합니다. 오일 도포 없는 비침습 교차 편광 광학계 · 200배율.</span></div>
-            <div class="item"><button type="button" class="item-head"><b>02 생활습관 문진</b><em aria-hidden="true">+</em></button><span class="desc">심리 · 수면 · 신체활동 · 영양 · 음주 · 흡연 여섯 영역을 공인 설문으로 함께 기록합니다.</span></div>
-            <div class="item"><button type="button" class="item-head"><b>03 온디바이스 AI 분석</b><em aria-hidden="true">+</em></button><span class="desc">네트워크 없이 기기 안에서 모세혈관 5대 지표를 점수화하고, 생활습관 점수와 교차합니다.</span></div>
-            <div class="item"><button type="button" class="item-head"><b>04 유형 · 코칭</b><em aria-hidden="true">+</em></button><span class="desc">9개 웰니스 유형 중 현재 위치와 유형별 코칭을 상담 자리에서 바로 보여 줍니다.</span></div>
-          </div>
-        </div>
+        </article>
       </div>
-    </div>
   </section>
 
   <!-- INDEX + MONITOR -->
