@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>최신 활동 | 헬스클라우드</title>
+  <meta name="description" content="헬스클라우드(주)의 과제 수주, 지식재산, 협력, 전시, 인증, 제품 소식을 전합니다.">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-512.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="news" data-news-page>
+
+  <section class="hero">
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="brand" aria-label="Health Cloud 홈">
+          <svg width="46" height="26" viewBox="0 0 440 248" fill="none" aria-hidden="true"><rect x="0" y="0" width="59" height="77" fill="#1489CB"/><rect x="131" y="0" width="59" height="77" fill="#EF3E25"/><rect x="0" y="101" width="190" height="46" fill="#FFCC04"/><rect x="0" y="171" width="59" height="77" fill="#B0BCC1"/><rect x="131" y="171" width="59" height="77" fill="#FFFFFF"/><path d="M350,0 A124,124 0 0 0 350,248 L350,195 A71,71 0 0 1 350,53 Z" fill="#B0BCC1"/><path d="M350,0 A124,124 0 0 1 437.7,36.3 L400.2,73.8 A71,71 0 0 0 350,53 Z" fill="#FFFFFF"/><path d="M350,248 A124,124 0 0 0 437.7,211.7 L400.2,174.2 A71,71 0 0 1 350,195 Z" fill="#FFFFFF"/></svg>
+          <span>HEALTH CLOUD</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" data-nav-toggle><span></span><span></span><span></span></button>
+        <nav class="nav" data-nav aria-label="주 메뉴">
+          <a href="index.html">홈</a>
+          <div class="nav-drop" data-drop>
+            <button type="button" aria-haspopup="true" aria-expanded="false">솔루션<span class="caret">▾</span></button>
+            <div class="nav-menu"><div class="nav-menu-inner">
+              <a href="solution-beauty.html"><i class="chip blue"></i><span><b>3-in-1 뷰티 케어</b><span class="desc">BEAUTY</span></span></a>
+              <a href="solution-wellness.html"><i class="chip red"></i><span><b>모세혈관으로 보는 웰니스</b><span class="desc">WELLNESS</span></span></a>
+            </div></div>
+          </div>
+          <a href="news.html" class="active" data-to-list>최신 활동</a>
+          <a href="index.html#careers">채용 공고</a>
+          <a href="#contact">문의</a>
+          <button class="lang-btn mobile" type="button" title="영문 페이지 준비 중" disabled>ENG</button>
+        </nav>
+        <button class="lang-btn" type="button" title="영문 페이지 준비 중" disabled>ENG</button>
+      </div>
+    </header>
+
+    <div class="container news-hero" data-news-list-head>
+      <div class="crumbs" style="padding-top:0"><span>홈</span><span>›</span><b>최신 활동</b></div>
+      <div class="eyebrow"><i class="chip yellow"></i>LATEST</div>
+      <h1 class="h-page">최신 활동</h1>
+      <p class="lead light">과제 수주, 지식재산, 협력, 전시, 인증, 제품 소식을 전합니다.</p>
+    </div>
+
+    <div class="container news-hero" data-news-detail-head hidden>
+      <div class="crumbs" style="padding-top:0"><span>홈</span><span>›</span><span>최신 활동</span><span>›</span><b data-d-cat></b></div>
+      <div class="news-detail-head">
+        <div class="meta"><span class="cat" data-d-cat2></span><span class="date" data-d-date></span></div>
+        <h1 data-d-title></h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="white" data-news-list>
+    <div class="container" style="padding-top:64px;padding-bottom:96px">
+      <div class="news-tools">
+        <div class="chips-filter" data-news-chips></div>
+        <span class="news-total" data-news-total></span>
+      </div>
+      <div class="news-list" data-news-rows></div>
+      <div class="pager" data-news-pager hidden></div>
+    </div>
+  </section>
+
+  <section class="white" data-news-detail hidden>
+    <article class="article">
+      <div class="cover"><img data-d-image src="assets/img/hero-lineup.jpg" alt=""></div>
+      <div class="body" data-d-body></div>
+      <div class="article-nav">
+        <a href="#" data-d-older><span class="k">← 이전 글</span><span class="t"></span></a>
+        <a href="#" class="newer" data-d-newer><span class="k">다음 글 →</span><span class="t"></span></a>
+      </div>
+      <div class="article-back"><a href="news.html" class="btn outline" data-to-list>목록으로</a></div>
+    </article>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="deco" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container">
+      <h2 class="h-cta">함께 만들어요</h2>
+      <p class="lead light">투자 · 협업 · 도입 문의를 언제든 환영합니다.</p>
+      <button type="button" class="btn white" data-open-inquiry>문의하기 <span>→</span></button>
+      <div class="footer">
+        <div class="footer-info">
+          <div><span><b>기업명</b>헬스클라우드(주)</span><span><b>대표</b>임태호</span><span><b>사업자등록번호</b>815-81-02020</span></div>
+          <div><span><b>주소</b>강원특별자치도 원주시 혁신로 19, H타워 A동 708호 (26460)</span></div>
+          <div><span><b>전화</b><a href="tel:033-1522-8930">033-1522-8930</a></span><span><b>팩스</b>033-813-9959</span><span><b>이메일</b><a href="mailto:shchoi@h-cloud.co.kr">shchoi@h-cloud.co.kr</a></span></div>
+        </div>
+        <div class="footer-copy">© 2026 Health Cloud Co., Ltd. All rights reserved.</div>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/js/news-data.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
