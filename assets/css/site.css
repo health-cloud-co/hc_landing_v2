@@ -606,7 +606,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .pager button { cursor: pointer; width: 44px; height: 44px; font: 600 15px var(--mono); color: var(--navy); background: transparent; border: 0; border-radius: var(--radius); }
 .pager button:hover { background: var(--bg); }
 .pager button.active { color: var(--white); background: var(--navy); }
-.article { max-width: 800px; margin: 0 auto; padding: 64px var(--gutter) 96px; }
+.article { max-width: calc(800px + 2 * var(--gutter)); margin: 0 auto; padding: 64px var(--gutter) 96px; }
 .article .cover { border-radius: var(--radius); overflow: hidden; background: var(--bg); margin-bottom: 48px; }
 .article .cover img { width: 100%; height: 420px; object-fit: cover; }
 .article .cover.contain img { object-fit: contain; }
