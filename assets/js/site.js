@@ -1,6 +1,62 @@
-/* Health Cloud site behaviors: header, hero slider, section nav, tabs, inquiry modal, news. */
+/* Health Cloud site behaviors: header, hero slider, section nav, tabs, inquiry modal, news, motion. */
 (function () {
   'use strict';
+
+  // Pages under en/ set <html lang="en"> and load the *.en.js data files
+  var LANG = document.documentElement.lang === 'en' ? 'en' : 'ko';
+  var BASE = LANG === 'en' ? '../' : '';
+
+  var I18N = {
+    ko: {
+      image: function (k) { return k + '번 이미지'; },
+      ipSub: function (pat, cr) { return '특허 ' + pat + ' · 저작권 ' + cr; },
+      more: '더보기', less: '접기',
+      cats: ['전체', '과제수주', 'IP', '얼라이언스', '전시회', '인증', '제품', '언론보도'],
+      total: function (n) { return '총 <b>' + n + '</b>건'; },
+      empty: '등록된 소식이 없습니다.', prevPage: '이전 페이지', nextPage: '다음 페이지', none: '없음',
+      newsTitle: '최신 활동 | Health Cloud',
+      required: '필수 항목을 확인해 주세요.',
+      sendFail: '전송에 실패했습니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요.',
+      m: {
+        title: '문의하기', close: '닫기', intro: '남겨주신 내용을 확인한 뒤 담당자가 연락드립니다.',
+        company: '회사명', companyPh: '회사 또는 기관명', name: '담당자', namePh: '이름',
+        phone: '연락처', phonePh: '010-0000-0000', email: '이메일',
+        sol: '관심 솔루션', solNote: '(중복 선택 가능)', beauty: '3-in-1 뷰티 케어', wellness: '모세혈관으로 보는 웰니스',
+        message: '문의 내용', messagePh: '도입 목적, 예상 규모, 일정 등을 자유롭게 적어주세요.',
+        consent: '개인정보 수집 · 이용에 동의합니다.', privMore: '자세히 보기',
+        privItems: '수집 항목', privItemsV: '회사명, 담당자명, 연락처, 이메일, 문의 내용',
+        privPurpose: '수집 목적', privPurposeV: '도입 문의 확인 및 상담, 회신',
+        privKeep: '보유 기간', privKeepV: '문의 처리 완료 후 1년간 보관 후 파기',
+        privNote: '동의를 거부할 수 있으며, 거부 시 문의 접수가 제한됩니다.',
+        submit: '문의 보내기', doneTitle: '문의가 접수되었습니다', doneText: '영업일 기준 2일 이내에 입력하신 연락처로 연락드리겠습니다.', ok: '확인'
+      }
+    },
+    en: {
+      image: function (k) { return 'Image ' + k; },
+      ipSub: function (pat, cr) { return pat + (pat === 1 ? ' patent' : ' patents') + ' · ' + cr + (cr === 1 ? ' copyright' : ' copyrights'); },
+      more: 'Show more', less: 'Show less',
+      cats: ['All', 'Grants', 'IP', 'Alliances', 'Exhibitions', 'Certification', 'Products', 'Press'],
+      total: function (n) { return '<b>' + n + '</b> ' + (n === 1 ? 'post' : 'posts'); },
+      empty: 'No posts yet.', prevPage: 'Previous page', nextPage: 'Next page', none: 'None',
+      newsTitle: 'News | Health Cloud',
+      required: 'Please check the required fields.',
+      sendFail: 'Sending failed. Please try again later or contact us by email.',
+      m: {
+        title: 'Contact us', close: 'Close', intro: 'We will review your message and get back to you.',
+        company: 'Company', companyPh: 'Company or organization', name: 'Name', namePh: 'Your name',
+        phone: 'Phone', phonePh: '+82 10-0000-0000', email: 'Email',
+        sol: 'Solutions of interest', solNote: '(select all that apply)', beauty: '3-in-1 Beauty Care', wellness: 'Wellness Through Capillaries',
+        message: 'Message', messagePh: 'Tell us about your goals, expected scale, timeline and so on.',
+        consent: 'I agree to the collection and use of my personal information.', privMore: 'Details',
+        privItems: 'Collected', privItemsV: 'Company, name, phone, email and message',
+        privPurpose: 'Purpose', privPurposeV: 'To review, consult on and reply to your inquiry',
+        privKeep: 'Retention', privKeepV: 'Kept for one year after the inquiry is closed, then deleted',
+        privNote: 'You may decline, but we cannot accept the inquiry without consent.',
+        submit: 'Send', doneTitle: 'Thank you for your inquiry', doneText: 'We will contact you within two business days.', ok: 'OK'
+      }
+    }
+  };
+  var T = I18N[LANG];
 
   var CONFIG = {
     // Web3Forms 접근 키(https://web3forms.com 에서 발급). 넣으면 폼 내용이 등록한 메일로 전송됩니다.
@@ -9,7 +65,7 @@
     inquiryEndpoint: '',
     // 둘 다 비어 있으면 메일 클라이언트(mailto)로 대체합니다.
     inquiryEmail: 'shchoi@h-cloud.co.kr',
-    newsDefaultImage: 'assets/img/hero-lineup.jpg'
+    newsDefaultImage: BASE + 'assets/img/hero-lineup.jpg'
   };
 
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
@@ -58,7 +114,7 @@
       var i = 0, timer = null, paused = false;
       var dots = slides.map(function (_, k) {
         var b = document.createElement('button');
-        b.type = 'button'; b.setAttribute('aria-label', (k + 1) + '번 이미지');
+        b.type = 'button'; b.setAttribute('aria-label', T.image(k + 1));
         b.addEventListener('click', function () { go(k); });
         dotsWrap.insertBefore(b, counter);
         return b;
@@ -278,47 +334,49 @@
   }
 
   /* ---------- Inquiry modal ---------- */
-  var MODAL_HTML =
-    '<div class="modal" data-modal role="dialog" aria-modal="true" aria-label="문의하기">' +
+  function modalHtml() {
+    var m = T.m;
+    return '<div class="modal" data-modal role="dialog" aria-modal="true" aria-label="' + m.title + '">' +
     '<div class="modal-box">' +
-    '<button type="button" class="modal-close" data-close aria-label="닫기">×</button>' +
+    '<button type="button" class="modal-close" data-close aria-label="' + m.close + '">×</button>' +
     '<div class="modal-head"><svg class="chips-mark" width="50" height="10" viewBox="0 0 50 10" aria-hidden="true"><rect width="10" height="10" fill="#2E7CC4"/><rect x="14" width="10" height="10" fill="#E8391D"/><rect x="28" width="22" height="10" fill="#FFD400"/></svg>' +
-    '<h2>문의하기</h2><p>남겨주신 내용을 확인한 뒤 담당자가 연락드립니다.</p></div>' +
+    '<h2>' + m.title + '</h2><p>' + m.intro + '</p></div>' +
     '<form class="inq-form" novalidate>' +
     '<div class="inq-grid">' +
-    '<label class="field"><span>회사명<span class="req">*</span></span><input name="company" type="text" required placeholder="회사 또는 기관명"></label>' +
-    '<label class="field"><span>담당자<span class="req">*</span></span><input name="name" type="text" required placeholder="이름"></label>' +
-    '<label class="field"><span>연락처<span class="req">*</span></span><input name="phone" type="tel" required placeholder="010-0000-0000"></label>' +
-    '<label class="field"><span>이메일<span class="req">*</span></span><input name="email" type="email" required placeholder="name@company.com"></label>' +
+    '<label class="field"><span>' + m.company + '<span class="req">*</span></span><input name="company" type="text" required placeholder="' + m.companyPh + '"></label>' +
+    '<label class="field"><span>' + m.name + '<span class="req">*</span></span><input name="name" type="text" required placeholder="' + m.namePh + '"></label>' +
+    '<label class="field"><span>' + m.phone + '<span class="req">*</span></span><input name="phone" type="tel" required placeholder="' + m.phonePh + '"></label>' +
+    '<label class="field"><span>' + m.email + '<span class="req">*</span></span><input name="email" type="email" required placeholder="name@company.com"></label>' +
     '</div>' +
-    '<div><div class="field-label" style="margin-bottom:8px">관심 솔루션 <small>(중복 선택 가능)</small></div>' +
+    '<div><div class="field-label" style="margin-bottom:8px">' + m.sol + ' <small>' + m.solNote + '</small></div>' +
     '<div class="sol-pick">' +
-    '<label><input type="checkbox" name="solution" value="3-in-1 뷰티 케어">3-in-1 뷰티 케어</label>' +
-    '<label><input type="checkbox" name="solution" value="모세혈관으로 보는 웰니스">모세혈관으로 보는 웰니스</label>' +
+    '<label><input type="checkbox" name="solution" value="' + m.beauty + '">' + m.beauty + '</label>' +
+    '<label><input type="checkbox" name="solution" value="' + m.wellness + '">' + m.wellness + '</label>' +
     '</div></div>' +
     '<input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-    '<label class="field">문의 내용<textarea name="message" rows="4" placeholder="도입 목적, 예상 규모, 일정 등을 자유롭게 적어주세요."></textarea></label>' +
+    '<label class="field">' + m.message + '<textarea name="message" rows="4" placeholder="' + m.messagePh + '"></textarea></label>' +
     '<div><div class="consent-row">' +
-    '<label class="consent"><input type="checkbox" name="consent" required><span>개인정보 수집 · 이용에 동의합니다. <span class="req">*</span></span></label>' +
-    '<button type="button" class="priv-toggle" data-priv aria-expanded="false">자세히 보기 <span>▾</span></button></div>' +
+    '<label class="consent"><input type="checkbox" name="consent" required><span>' + m.consent + ' <span class="req">*</span></span></label>' +
+    '<button type="button" class="priv-toggle" data-priv aria-expanded="false">' + m.privMore + ' <span>▾</span></button></div>' +
     '<div class="priv-box" data-priv-box>' +
-    '<div><b>수집 항목</b><span>회사명, 담당자명, 연락처, 이메일, 문의 내용</span></div>' +
-    '<div><b>수집 목적</b><span>도입 문의 확인 및 상담, 회신</span></div>' +
-    '<div><b>보유 기간</b><span>문의 처리 완료 후 1년간 보관 후 파기</span></div>' +
-    '<span class="note">동의를 거부할 수 있으며, 거부 시 문의 접수가 제한됩니다.</span></div></div>' +
+    '<div><b>' + m.privItems + '</b><span>' + m.privItemsV + '</span></div>' +
+    '<div><b>' + m.privPurpose + '</b><span>' + m.privPurposeV + '</span></div>' +
+    '<div><b>' + m.privKeep + '</b><span>' + m.privKeepV + '</span></div>' +
+    '<span class="note">' + m.privNote + '</span></div></div>' +
     '<p class="inq-error" data-error></p>' +
-    '<button type="submit" class="inq-submit">문의 보내기 <span>→</span></button>' +
+    '<button type="submit" class="inq-submit">' + m.submit + ' <span>→</span></button>' +
     '</form>' +
     '<div class="inq-done"><svg class="chips-mark" width="68" height="14" viewBox="0 0 68 14" aria-hidden="true"><rect width="14" height="14" fill="#2E7CC4"/><rect x="18" width="14" height="14" fill="#E8391D"/><rect x="36" width="32" height="14" fill="#FFD400"/></svg>' +
-    '<h2>문의가 접수되었습니다</h2><p>영업일 기준 2일 이내에 입력하신 연락처로 연락드리겠습니다.</p>' +
-    '<button type="button" class="btn navy sm" data-close>확인</button></div>' +
+    '<h2>' + m.doneTitle + '</h2><p>' + m.doneText + '</p>' +
+    '<button type="button" class="btn navy sm" data-close>' + m.ok + '</button></div>' +
     '</div></div>';
+  }
 
   function initInquiry() {
     var openers = $$('[data-open-inquiry]');
     if (!openers.length) return;
     var wrap = document.createElement('div');
-    wrap.innerHTML = MODAL_HTML;
+    wrap.innerHTML = modalHtml();
     var modal = wrap.firstChild;
     document.body.appendChild(modal);
     var box = $('.modal-box', modal);
@@ -359,7 +417,7 @@
       e.preventDefault();
       errorEl.classList.remove('show');
       if (!form.checkValidity()) {
-        errorEl.textContent = '필수 항목을 확인해 주세요.';
+        errorEl.textContent = T.required;
         errorEl.classList.add('show');
         var bad = $(':invalid', form); if (bad) bad.focus();
         return;
@@ -374,13 +432,14 @@
         page: location.pathname + location.hash,
         sentAt: new Date().toISOString()
       };
-      var subjectLine = '[도입 문의] ' + data.company + ' / ' + data.name;
+      // Staff read inquiries in Korean; English-page inquiries are tagged [EN]
+      var subjectLine = '[도입 문의]' + (LANG === 'en' ? '[EN] ' : ' ') + data.company + ' / ' + data.name;
       function post(url, payload, okCheck) {
         submitBtn.disabled = true;
         fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
           .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, json: j }; }); })
           .then(function (res) { if (!okCheck(res)) throw new Error('bad status'); box.classList.add('sent'); })
-          .catch(function () { errorEl.textContent = '전송에 실패했습니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요.'; errorEl.classList.add('show'); })
+          .catch(function () { errorEl.textContent = T.sendFail; errorEl.classList.add('show'); })
           .then(function () { submitBtn.disabled = false; });
       }
       if (CONFIG.web3formsKey) {
@@ -439,7 +498,7 @@
       if (sub) {
         var pat = items.filter(function (i) { return i.type === 'patent'; }).length;
         var cr = items.filter(function (i) { return i.type === 'copyright'; }).length;
-        sub.textContent = '특허 ' + pat + ' · 저작권 ' + cr;
+        sub.textContent = T.ipSub(pat, cr);
       }
       list.innerHTML = items.slice(0, VISIBLE).map(row).join('');
       var rest = items.slice(VISIBLE);
@@ -453,7 +512,7 @@
     var anyMore = cards.some(function (c) { return !c.classList.contains('nomore'); });
     function renderAll() {
       renders.forEach(function (r) { r(); });
-      if (label) label.textContent = open ? '접기' : '더보기';
+      if (label) label.textContent = open ? T.less : T.more;
       if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
     if (!anyMore) {
@@ -499,7 +558,7 @@
   }
 
   /* ---------- News ---------- */
-  var NEWS_CATS = ['전체', '과제수주', 'IP', '얼라이언스', '전시회', '인증', '제품', '언론보도'];
+  var NEWS_CATS = T.cats, NEWS_ALL = T.cats[0];
 
   function newsRow(p) {
     return '<a href="news.html#post-' + p.id + '" class="news-row">' +
@@ -520,27 +579,27 @@
     var root = $('[data-news-page]');
     if (!root || !window.HC_NEWS) return;
     var POSTS = window.HC_NEWS, PER = 10;
-    var state = { cat: '전체', page: 1 };
+    var state = { cat: NEWS_ALL, page: 1 };
     var listHead = $('[data-news-list-head]'), detailHead = $('[data-news-detail-head]');
     var listSec = $('[data-news-list]'), detailSec = $('[data-news-detail]');
     var chipsEl = $('[data-news-chips]'), totalEl = $('[data-news-total]'), rowsEl = $('[data-news-rows]'), pagerEl = $('[data-news-pager]');
-    var cats = NEWS_CATS.filter(function (c) { return c === '전체' || POSTS.some(function (p) { return p.cat === c; }); });
+    var cats = NEWS_CATS.filter(function (c) { return c === NEWS_ALL || POSTS.some(function (p) { return p.cat === c; }); });
 
     function currentId() { var m = /^#post-(\d+)$/.exec(location.hash); return m ? +m[1] : null; }
 
     function renderList() {
-      var list = state.cat === '전체' ? POSTS : POSTS.filter(function (p) { return p.cat === state.cat; });
+      var list = state.cat === NEWS_ALL ? POSTS : POSTS.filter(function (p) { return p.cat === state.cat; });
       var pages = Math.max(1, Math.ceil(list.length / PER));
       state.page = Math.min(Math.max(1, state.page), pages);
       chipsEl.innerHTML = cats.map(function (c) {
         return '<button type="button" class="' + (c === state.cat ? 'active' : '') + '" data-cat="' + esc(c) + '" aria-pressed="' + (c === state.cat) + '">' + esc(c) + '</button>';
       }).join('');
-      totalEl.innerHTML = '총 <b>' + list.length + '</b>건';
-      rowsEl.innerHTML = list.slice((state.page - 1) * PER, state.page * PER).map(newsRow).join('') || '<p style="padding:32px 8px;color:#5B6472">등록된 소식이 없습니다.</p>';
+      totalEl.innerHTML = T.total(list.length);
+      rowsEl.innerHTML = list.slice((state.page - 1) * PER, state.page * PER).map(newsRow).join('') || '<p style="padding:32px 8px;color:#5B6472">' + T.empty + '</p>';
       if (pages > 1) {
-        var html = '<button type="button" data-page="' + (state.page - 1) + '" aria-label="이전 페이지">←</button>';
+        var html = '<button type="button" data-page="' + (state.page - 1) + '" aria-label="' + T.prevPage + '">←</button>';
         for (var k = 1; k <= pages; k++) html += '<button type="button" data-page="' + k + '" class="' + (k === state.page ? 'active' : '') + '">' + k + '</button>';
-        html += '<button type="button" data-page="' + (state.page + 1) + '" aria-label="다음 페이지">→</button>';
+        html += '<button type="button" data-page="' + (state.page + 1) + '" aria-label="' + T.nextPage + '">→</button>';
         pagerEl.innerHTML = html; pagerEl.hidden = false;
       } else { pagerEl.hidden = true; }
     }
@@ -556,8 +615,8 @@
       img.src = post.image || CONFIG.newsDefaultImage; img.alt = post.title;
       $('[data-d-body]', detailSec).innerHTML = (post.body || []).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
       var o = $('[data-d-older]', detailSec), nw = $('[data-d-newer]', detailSec);
-      o.href = older ? '#post-' + older.id : '#'; o.classList.toggle('disabled', !older); $('.t', o).textContent = older ? older.title : '없음';
-      nw.href = newer ? '#post-' + newer.id : '#'; nw.classList.toggle('disabled', !newer); $('.t', nw).textContent = newer ? newer.title : '없음';
+      o.href = older ? '#post-' + older.id : '#'; o.classList.toggle('disabled', !older); $('.t', o).textContent = older ? older.title : T.none;
+      nw.href = newer ? '#post-' + newer.id : '#'; nw.classList.toggle('disabled', !newer); $('.t', nw).textContent = newer ? newer.title : T.none;
       document.title = post.title + ' | Health Cloud';
     }
 
@@ -567,7 +626,7 @@
       listHead.hidden = !!post; listSec.hidden = !!post;
       detailHead.hidden = !post; detailSec.hidden = !post;
       if (post) { renderDetail(post); window.scrollTo(0, 0); }
-      else { renderList(); document.title = '최신 활동 | Health Cloud'; }
+      else { renderList(); document.title = T.newsTitle; }
     }
 
     chipsEl.addEventListener('click', function (e) {
@@ -618,6 +677,71 @@
     setTimeout(function () { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY }); }, 50);
   }
 
+  /* ---------- Motion: scroll progress, reveal on enter, count-up ---------- */
+  function initScrollProgress() {
+    var bar = document.createElement('div');
+    bar.className = 'scroll-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    bar.innerHTML = '<i></i><i></i><i></i>';
+    document.body.insertBefore(bar, document.body.firstChild);
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  var REVEAL_SEL = '.section-head, .sol-card, .product, .proof-title, .proof-card, .allies-head, .news-list, .mode-card, .item-grid, .step, .index-card, .ops-group, .next-card, .careers-empty, .contact .h-cta, .contact .lead, .contact .btn';
+
+  function initReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    $$(REVEAL_SEL).forEach(function (el) {
+      // Hidden blocks and inactive 3-in-1 slides stay as they are; a block moves as a whole
+      if (el.closest('[hidden], .mode-slide:not(.active)') || el.parentElement.closest(REVEAL_SEL)) return;
+      var i = 0, s = el;
+      while ((s = s.previousElementSibling)) { if (s.matches(REVEAL_SEL)) i++; }
+      el.classList.add('reveal');
+      if (i) el.classList.add('reveal-d' + Math.min(i, 5));
+      io.observe(el);
+    });
+    document.documentElement.classList.add('js-reveal');
+  }
+
+  function initCountUp() {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var el = e.target, to = +el.getAttribute('data-count-to'), t0 = performance.now(), dur = 1600;
+        (function step(now) {
+          var k = Math.min(1, (now - t0) / dur);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+          if (k < 1) requestAnimationFrame(step);
+        })(t0);
+      });
+    }, { threshold: 0.4 });
+    $$('[data-proof-num]').forEach(function (el) {
+      var to = parseInt(el.textContent, 10);
+      if (!(to > 0)) return;
+      el.setAttribute('data-count-to', to);
+      el.setAttribute('aria-label', String(to));
+      el.textContent = '0';
+      io.observe(el);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initHeader();
     initSliders();
@@ -629,5 +753,8 @@
     initNewsPage();
     initCareersFlash();
     initHashScroll();
+    initScrollProgress();
+    initCountUp();
+    initReveal();
   });
 })();

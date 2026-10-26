@@ -1,10 +1,10 @@
 /* Health Cloud corporate site. Design source: Health-Cloud Landing/Beauty/Wellness/News v5. */
 
 :root {
-  --navy: #1D3140;
-  --navy-2: #26404F;
-  --navy-3: #2B4757;
-  --navy-deep: #1A2C3A;
+  --navy: #121417;
+  --navy-2: #1C1F23;
+  --navy-3: #272B30;
+  --navy-deep: #0B0C0E;
   --ink: #0E1524;
   --blue: #2E7CC4;
   --blue-deep: #2569A8;
@@ -152,6 +152,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2) { opacity: 0; }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+a.lang-btn { display: inline-flex; align-items: center; text-decoration: none; }
+a.lang-btn:hover { color: var(--white); border-color: var(--white); }
 .lang-btn.mobile { display: none; }
 
 /* ---------- Hero (landing & solution) ---------- */
@@ -180,14 +182,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero-grid.solution .slider.single .slider-view { height: 416px; }
 .slider-stack { position: relative; }
 .slider-stack .ghost { position: absolute; inset: 0; border-radius: var(--radius); }
-.slider-stack .ghost.g1 { transform: translate(28px, -20px); background: #203746; border: 1px solid rgba(255, 255, 255, .08); }
+.slider-stack .ghost.g1 { transform: translate(28px, -20px); background: var(--navy-2); border: 1px solid rgba(255, 255, 255, .08); }
 .slider-stack .ghost.g2 { transform: translate(14px, -10px); background: var(--navy-3); border: 1px solid rgba(255, 255, 255, .12); box-shadow: 0 20px 40px -24px rgba(0, 0, 0, .6); }
 .slider-view { position: relative; z-index: 2; border-radius: var(--radius); overflow: hidden; box-shadow: 0 32px 56px -28px rgba(0, 0, 0, .65); background: var(--navy-2); height: 400px; }
 .hero-grid.solution .slider-view { height: 320px; }
 .slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .6s ease; }
 .slide.active { opacity: 1; pointer-events: auto; }
 .slide img { width: 100%; height: 100%; object-fit: cover; }
-.slide .caption { position: absolute; left: 0; bottom: 0; font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--white); background: rgba(14, 21, 36, .72); padding: 8px 12px; }
+.slide .caption { position: absolute; left: 0; bottom: 0; font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--white); background: rgba(11, 12, 14, .78); padding: 8px 12px; }
 .slider-ctrl { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-right: 28px; }
 .slider-dots { display: flex; align-items: center; gap: 6px; }
 .slider-dots button { position: relative; cursor: pointer; border: 0; padding: 0; height: 12px; width: 12px; background: rgba(195, 204, 211, .45); transition: width .3s, background .3s; }
@@ -212,7 +214,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Dual solution cards ---------- */
 .dual { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; }
 .sol-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; background: var(--white); border-radius: var(--radius); overflow: hidden; transition: transform .3s, box-shadow .3s; }
-.sol-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(29, 49, 64, .45); color: inherit; }
+.sol-card:hover { transform: translateY(-4px); box-shadow: 0 28px 56px -28px rgba(0, 0, 0, .5); color: inherit; }
 .sol-card figure { position: relative; margin: 0; height: 280px; background: #E9EEF2; }
 .sol-card figure img { width: 100%; height: 100%; object-fit: cover; }
 .sol-card figure .tag { position: absolute; left: 0; bottom: 0; font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--white); padding: 10px 16px; }
@@ -227,8 +229,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Proof band ---------- */
 .proof { padding: 88px 0; }
 .proof-title { font-size: 20px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 48px; }
-.proof-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; align-items: stretch; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
-.proof-card { background: var(--navy); display: flex; flex-direction: column; }
+.proof-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.proof-card { background: var(--navy-2); display: flex; flex-direction: column; }
 .proof-card.clickable { cursor: pointer; user-select: none; }
 .proof-card:focus-visible { outline: 2px solid var(--yellow); outline-offset: -2px; }
 .proof-head { position: relative; padding: 32px 28px 24px; display: flex; flex-direction: column; gap: 14px; }
@@ -242,7 +244,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .proof-item .name { flex: 1 1 160px; min-width: 0; font-size: 15px; font-weight: 500; color: var(--white); }
 .proof-item .ref { font-family: var(--mono); font-size: 13px; color: var(--gray); }
 .proof-more { overflow: hidden; max-height: 0; transition: max-height .45s cubic-bezier(.2, .7, .2, 1); }
-.proof-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; background: linear-gradient(180deg, rgba(29, 49, 64, 0), var(--navy) 85%); pointer-events: none; }
+.proof-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; background: linear-gradient(180deg, transparent, var(--navy-2) 85%); pointer-events: none; }
 .proof-card.open .proof-fade, .proof-card.static .proof-fade, .proof-card.nomore .proof-fade { display: none; }
 .proof-more-wrap { display: flex; justify-content: center; padding-top: 20px; }
 .proof-more-wrap[hidden] { display: none; }
@@ -376,7 +378,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .seg-tabs button.active em, .seg-tabs button.active:hover em { color: var(--yellow); }
 .mode-phone-col { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 28px 16px 20px; background: #EEF1F3; }
 .phone { max-width: 100%; padding: 8px; background: #0E1524; border-radius: 38px; box-shadow: 0 0 0 1px #3A4656 inset, 0 28px 48px -28px rgba(14, 21, 36, .55); }
-.phone-screen { position: relative; width: var(--phone-w); aspect-ratio: 9 / 19.5; background: #26404F; border-radius: 30px; overflow: hidden; user-select: none; -webkit-user-select: none; }
+.phone-screen { position: relative; width: var(--phone-w); aspect-ratio: 9 / 19.5; background: var(--navy-2); border-radius: 30px; overflow: hidden; user-select: none; -webkit-user-select: none; }
 .phone-screen .notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 32%; height: 20px; background: #0E1524; border-radius: 10px; z-index: 2; pointer-events: none; }
 .mode-shot { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .6s, visibility .6s; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-width: none; }
 .mode-shot::-webkit-scrollbar { display: none; }
@@ -707,3 +709,68 @@ ul { margin: 0; padding: 0; list-style: none; }
 .inq-done .chips-mark { margin-bottom: 6px; }
 .chips { align-items: center; }
 .botcheck { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Motion ----------
+   Plays regardless of the OS "reduce motion" setting, matching the approved design canvas. */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 60; height: 4px; display: grid; grid-template-columns: 1fr 1fr 2fr; pointer-events: none; transform-origin: 0 50%; transform: scaleX(0); }
+.scroll-progress i:nth-child(1) { background: var(--blue); }
+.scroll-progress i:nth-child(2) { background: var(--red); }
+.scroll-progress i:nth-child(3) { background: var(--yellow); }
+
+@keyframes rise-in { from { opacity: 0; translate: 0 32px; } to { opacity: 1; translate: 0 0; } }
+@keyframes line-in { from { translate: 0 110%; } to { translate: 0 0; } }
+@keyframes chip-in { from { scale: 0 1; } to { scale: 1 1; } }
+@keyframes slow-zoom { from { scale: 1; } to { scale: 1.03; } }
+
+/* Hero entrance */
+.hero-copy > * { animation: rise-in .9s cubic-bezier(.2, .7, .2, 1) both; }
+.hero-copy > :nth-child(2) { animation-delay: .12s; }
+.hero-copy > :nth-child(3) { animation-delay: .24s; }
+.hero-copy > :nth-child(4) { animation-delay: .36s; }
+.hero-copy > :nth-child(5) { animation-delay: .48s; }
+.hero .chips-mark rect { transform-box: fill-box; transform-origin: 0 50%; animation: chip-in .6s cubic-bezier(.2, .7, .2, 1) both; }
+.hero .chips-mark rect:nth-child(2) { animation-delay: .12s; }
+.hero .chips-mark rect:nth-child(3) { animation-delay: .24s; }
+.hero .slider { animation: rise-in 1s .25s cubic-bezier(.2, .7, .2, 1) both; }
+.slide img { animation: slow-zoom 20s ease-in-out infinite alternate; }
+.hero h1 .line { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero h1 .line > span { display: inline-block; animation: line-in 1s cubic-bezier(.2, .7, .2, 1) both; }
+.hero h1 .line:nth-child(2) > span { animation-delay: .14s; }
+.hero-copy > h1:has(.line) { animation: none; }
+
+/* Reveal on enter: site.js tags blocks with .reveal (stagger via .reveal-d1–d5), sets
+   .js-reveal on <html> and adds .is-in as each block enters. Without the script nothing hides.
+   The stagger delays only the reveal, so hover lifts (transform, box-shadow) stay instant. */
+.js-reveal .reveal { opacity: 0; translate: 0 36px; transition: opacity .7s cubic-bezier(.2, .7, .2, 1), translate .7s cubic-bezier(.2, .7, .2, 1), transform .3s, box-shadow .3s; transition-delay: var(--reveal-delay, 0s), var(--reveal-delay, 0s), 0s, 0s; }
+.js-reveal .reveal.is-in { opacity: 1; translate: 0 0; }
+.reveal-d1 { --reveal-delay: .1s; }
+.reveal-d2 { --reveal-delay: .2s; }
+.reveal-d3 { --reveal-delay: .3s; }
+.reveal-d4 { --reveal-delay: .4s; }
+.reveal-d5 { --reveal-delay: .5s; }
+.js-reveal .reveal .eyebrow .chip { transform-origin: 0 50%; scale: 0 1; transition: scale .5s .2s cubic-bezier(.2, .7, .2, 1); }
+.js-reveal .reveal.is-in .eyebrow .chip { scale: 1 1; }
+/* Card images wipe open from the bottom while the photo settles. Driven by the card's .is-in:
+   a fully clipped figure never counts as visible to the observer. */
+.js-reveal .reveal > figure { clip-path: inset(100% 0 0 0); transition: clip-path .9s cubic-bezier(.7, 0, .2, 1) calc(var(--reveal-delay, 0s) + .1s); }
+.js-reveal .reveal.is-in > figure { clip-path: inset(0); }
+.js-reveal .reveal > figure img { scale: 1.08; transition: scale 1.2s cubic-bezier(.2, .7, .2, 1) calc(var(--reveal-delay, 0s) + .1s); }
+.js-reveal .reveal.is-in > figure img { scale: 1; }
+
+/* Hover feedback */
+.sol-card figure { overflow: hidden; }
+.sol-card .body h3 { transition: color .25s; }
+.sol-card:hover .body h3 { color: var(--blue); }
+.btn span, .arrow-box, .news-row .go { transition: translate .25s; }
+.btn:hover span, .sol-card:hover .arrow-box, .news-row:hover .go { translate: 6px 0; }
+/* transform, not translate: the reveal holds translate on these cards */
+.product, .next-card { transition: transform .3s, box-shadow .3s; }
+.product:hover, .next-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(0, 0, 0, .35); }
+
+/* Home: one-screen hero, solutions section fits a 900px-tall screen */
+@media (min-width: 861px) {
+  [data-page="home"] .hero { display: flex; flex-direction: column; min-height: min(100vh, 960px); }
+  [data-page="home"] .hero > .hero-grid { flex: 1; width: 100%; align-content: center; }
+  [data-page="home"] #solution { padding: 80px 0; }
+  [data-page="home"] .sol-card figure { height: 260px; }
+}
