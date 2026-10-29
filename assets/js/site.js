@@ -50,7 +50,7 @@
         title: 'Contact us', close: 'Close', intro: 'We will review your message and get back to you.',
         company: 'Company', companyPh: 'Company or organization', name: 'Name', namePh: 'Your name',
         phone: 'Phone', phonePh: '+82 10-0000-0000', email: 'Email',
-        message: 'Message', messagePh: 'Tell us about your goals, expected scale, timeline and so on.',
+        message: 'Message', messagePh: 'Tell us about your goals, expected scale and timeline.',
         consent: 'I agree to the collection and use of my personal information.', privMore: 'Details',
         privItems: 'Collected', privItemsV: 'Company, name, phone, email and message',
         privPurpose: 'Purpose', privPurposeV: 'To review, consult on and reply to your inquiry',
@@ -107,11 +107,95 @@
     });
   }
 
+  /* ---------- Home hero: chip grid that scans, quantifies, then resolves into the HC mark ---------- */
+  (function () {
+    var root = $('[data-hero-scan]'); if (!root) return;
+    var grid = $('[data-scan-grid]', root), text = $('[data-scan-text]', root), dot = $('[data-scan-dot]', root),
+        legend = $$('[data-scan-legend] span', root), replayBtn = $('[data-scan-replay]', root);
+    var COLS = 15, ROWS = 10, N = COLS * ROWS, SCAN = 1900, RESOLVE = 1300, TOTAL = SCAN + RESOLVE;
+    var ACC = ['#2E7CC4', '#E8391D', '#FFD400'];
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Target pattern: the HC mark. H = five blocks (blue, red, yellow bar, gray, white); C = ring open to the right.
+    var P = {}, r, c;
+    for (r = 0; r < 3; r++) { P[r * COLS] = '#1489CB'; P[r * COLS + 1] = '#1489CB'; P[r * COLS + 4] = '#EF3E25'; P[r * COLS + 5] = '#EF3E25'; }
+    for (r = 4; r < 6; r++) for (c = 0; c < 6; c++) P[r * COLS + c] = '#FFCC04';
+    for (r = 7; r < 10; r++) { P[r * COLS] = '#B0BCC1'; P[r * COLS + 1] = '#B0BCC1'; P[r * COLS + 4] = '#FFFFFF'; P[r * COLS + 5] = '#FFFFFF'; }
+    for (r = 0; r < ROWS; r++) for (c = 7; c < COLS; c++) {
+      var dx = c - 11.5, dy = r - 4.5, d = Math.sqrt(dx * dx + dy * dy);
+      if (d > 5.1 || d < 2.6) continue;
+      var ang = Math.atan2(dy, dx) * 180 / Math.PI;
+      if (Math.abs(ang) < 40) continue;
+      P[r * COLS + c] = Math.abs(ang) > 95 ? '#B0BCC1' : '#FFFFFF';
+    }
+    var cells = [], frag = document.createDocumentFragment(), H = [];
+    for (var i = 0; i < N; i++) {
+      var el = document.createElement('i'); frag.appendChild(el); cells.push(el);
+      var x = Math.sin(i * 12.9898 + 78.233) * 43758.5453; H.push(x - Math.floor(x));
+    }
+    grid.appendChild(frag);
+    function paint(t) {
+      var scanX = Math.min(1, t / SCAN) * (COLS + 2) - 1, resolve = Math.max(0, Math.min(1, (t - SCAN) / RESOLVE));
+      for (var i = 0; i < N; i++) {
+        var c = i % COLS, h = H[i], bg, glow = '', op = '';
+        if (t < SCAN) {
+          var dist = scanX - c;
+          if (dist > -0.2 && dist < 1.2) bg = 'rgba(255,255,255,' + (0.55 - dist * 0.3).toFixed(2) + ')';
+          else if (dist >= 1.2 && h > 0.86 && dist < 4) { bg = ACC[Math.floor(h * 97) % 3]; glow = '0 0 14px ' + bg + '66'; }
+          else if (dist >= 1.2) bg = 'rgba(255,255,255,' + (h > 0.86 ? 0.09 : 0.05) + ')';
+          else bg = 'rgba(255,255,255,.035)';
+        } else {
+          var target = P[i], k = Math.max(0, Math.min(1, (resolve - (h * 0.6 + (c / COLS) * 0.3)) / 0.3));
+          if (target) { bg = k <= 0 ? 'rgba(255,255,255,.08)' : target; if (k > 0 && k < 1) op = (0.3 + 0.7 * k).toFixed(2); }
+          else bg = 'rgba(255,255,255,' + (0.09 - 0.04 * Math.min(1, resolve * 1.5)).toFixed(3) + ')';
+        }
+        var s = cells[i].style; s.background = bg; s.boxShadow = glow; s.opacity = op;
+      }
+      var phase = t < SCAN ? 0 : (t < SCAN + RESOLVE ? 1 : 2), pct = Math.round(Math.min(1, t / SCAN) * 100);
+      text.textContent = phase === 0 ? 'Scanning ' + (pct < 10 ? '0' + pct : pct) + '%' : (phase === 1 ? 'Quantifying' : 'Resolved · ' + N + ' cells');
+      dot.style.background = phase === 2 ? '#2E7CC4' : (phase === 1 ? '#E8391D' : '#FFD400');
+      // Legend: each colour group lights up as its cells settle (blue → red → yellow → gray → white) and stays lit once resolved
+      legend.forEach(function (el, k) {
+        var a = k * 0.17, on = phase === 1 ? (resolve >= a && resolve < a + 0.38) : phase === 2;
+        el.classList.toggle('on', on);
+      });
+    }
+    // Plays once (when the hero first comes into view), then rests on the resolved mark; the replay control runs it again.
+    var raf = 0, t0 = 0, last = -1, played = false;
+    function tick(now) {
+      var t = now - t0;
+      if (t >= TOTAL) { paint(1e9); raf = 0; return; }
+      if (now - last > 45) { last = now; paint(t); }
+      raf = requestAnimationFrame(tick);
+    }
+    function start() { played = true; cancelAnimationFrame(raf); if (reduced) { paint(1e9); raf = 0; return; } t0 = performance.now(); last = -1; raf = requestAnimationFrame(tick); }
+    paint(reduced ? 1e9 : 0);
+    replayBtn.addEventListener('click', start);
+    if ('IntersectionObserver' in window && !reduced) {
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting && !played) { start(); io.disconnect(); } }); }, { threshold: 0.2 });
+      io.observe(root);
+    } else start();
+  })();
+
+  /* ---------- Footer: back to top ---------- */
+  $$('[data-to-top]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var smooth = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+    });
+  });
+
   /* ---------- Hero slider ---------- */
   function initSliders() {
     $$('[data-slider]').forEach(function (root) {
       var slides = $$('.slide', root);
-      if (slides.length < 2) { var c = $('.slider-ctrl', root); if (c) c.hidden = true; return; }
+      // One ghost frame behind the photo when more slides are waiting; none for a single image
+      if (slides.length < 2) {
+        // One image: keep the control row for the shared hero rhythm, but the arrows do nothing and look it
+        $$('.ghost', root).forEach(function (g) { g.parentNode.removeChild(g); });
+        $$('.slider-arrows button', root).forEach(function (b) { b.disabled = true; });
+        var one = $('.slider-counter', root); if (one) one.textContent = '01 / 01';
+        return;
+      }
       var dotsWrap = $('.slider-dots', root);
       var counter = $('.slider-counter', root);
       var i = 0, timer = null, paused = false;
@@ -690,7 +774,8 @@
     update();
   }
 
-  var REVEAL_SEL = '.section-head, .sol-card, .product, .proof-card, .allies-head, .news-list, .mode-card, .item-grid, .step, .index-card, .ops-group, .next-card, .careers-empty, .contact .h-cta, .contact .lead, .contact .btn';
+  // The contact CTA at the foot of every page stays visible: it must never read as missing before a scroll
+  var REVEAL_SEL = '.section-head, .sol-card, .product, .proof-card, .allies-head, .news-list, .mode-card, .item-grid, .step, .index-card, .ops-group, .careers-empty';
 
   function initReveal() {
     if (!('IntersectionObserver' in window)) return;

@@ -34,9 +34,8 @@ window.HC_PROOF = {
   ],
   allies: [
     /* Institutions, hospitals and companies only (no zones, certifications or program names). */
-    { name: 'Korea University Guro Hospital Open Lab', logo: '../assets/img/allies/kumc-guro.svg' },
     { name: 'Hanyang University Hospital for Rheumatic Diseases', logo: '../assets/img/allies/hyumc-rheumatism.png' },
-    { name: 'Wonju Medical Industry Techno Valley', logo: '../assets/img/allies/wmit.png' },
+    { name: 'Wonju Medical Device Industry Promotion Agency (WMIT)', logo: '../assets/img/allies/wmit.png' },
     { name: 'Gangwon Center for Creative Economy & Innovation', logo: '../assets/img/allies/ccei-gangwon.png' },
     { name: 'Gangwon Industry-Academia Convergence Institute', logo: '../assets/img/allies/gwgic.png' },
     /* Partner companies (MOUs and joint business). */

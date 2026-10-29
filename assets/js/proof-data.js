@@ -39,7 +39,6 @@ window.HC_PROOF = {
   allies: [
     /* 병원 → 기관 → 기업 순. 특구 · 인증 · 사업명은 넣지 않습니다. 원주의료기기테크노밸리는 2025년 원주의료기기산업진흥원으로 명칭이 바뀌었습니다.
        로고는 각 기관 공식 홈페이지 헤더 이미지(2026.10 기준). 강원창조경제혁신센터는 흰색 버전만 있어 글자를 네이비 단색으로 바꾼 파일입니다. */
-    { name: '고려대학교 구로병원 개방형 실험실', logo: 'assets/img/allies/kumc-guro.svg' },
     { name: '한양대학교 류마티스병원', logo: 'assets/img/allies/hyumc-rheumatism.png' },
     { name: '원주의료기기산업진흥원', logo: 'assets/img/allies/wmit.png' },
     { name: '강원창조경제혁신센터', logo: 'assets/img/allies/ccei-gangwon.png' },
