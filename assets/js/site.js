@@ -9,11 +9,14 @@
   var I18N = {
     ko: {
       image: function (k) { return k + '번 이미지'; },
-      ipSub: function (pat, cr) { return '특허 ' + pat + ' · 저작권 ' + cr; },
+      ipSub: function (c) {
+        return [['patent', '특허'], ['pending', '출원'], ['trademark', '상표'], ['copyright', '저작권']]
+          .filter(function (k) { return c[k[0]]; }).map(function (k) { return k[1] + ' ' + c[k[0]]; }).join(' · ');
+      },
       more: '더보기', less: '접기',
-      cats: ['전체', '과제수주', 'IP', '얼라이언스', '전시회', '인증', '제품', '언론보도'],
+      cats: ['전체', '과제수주', 'IP', '협력', '전시회', '인증', '제품', '언론보도'],
       total: function (n) { return '총 <b>' + n + '</b>건'; },
-      empty: '등록된 소식이 없습니다.', prevPage: '이전 페이지', nextPage: '다음 페이지', none: '없음',
+      empty: '등록된 소식이 없습니다.', prevPage: '이전 페이지', nextPage: '다음 페이지', none: '없음', source: '관련 기사 보기',
       newsTitle: '최신 활동 | Health Cloud',
       required: '필수 항목을 확인해 주세요.',
       sendFail: '전송에 실패했습니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요.',
@@ -21,7 +24,6 @@
         title: '문의하기', close: '닫기', intro: '남겨주신 내용을 확인한 뒤 담당자가 연락드립니다.',
         company: '회사명', companyPh: '회사 또는 기관명', name: '담당자', namePh: '이름',
         phone: '연락처', phonePh: '010-0000-0000', email: '이메일',
-        sol: '관심 솔루션', solNote: '(중복 선택 가능)', beauty: '3-in-1 뷰티 케어', wellness: '모세혈관으로 보는 웰니스',
         message: '문의 내용', messagePh: '도입 목적, 예상 규모, 일정 등을 자유롭게 적어주세요.',
         consent: '개인정보 수집 · 이용에 동의합니다.', privMore: '자세히 보기',
         privItems: '수집 항목', privItemsV: '회사명, 담당자명, 연락처, 이메일, 문의 내용',
@@ -33,11 +35,14 @@
     },
     en: {
       image: function (k) { return 'Image ' + k; },
-      ipSub: function (pat, cr) { return pat + (pat === 1 ? ' patent' : ' patents') + ' · ' + cr + (cr === 1 ? ' copyright' : ' copyrights'); },
+      ipSub: function (c) {
+        return [['patent', 'patent', 'patents'], ['pending', 'filed', 'filed'], ['trademark', 'trademark', 'trademarks'], ['copyright', 'copyright', 'copyrights']]
+          .filter(function (k) { return c[k[0]]; }).map(function (k) { return c[k[0]] + ' ' + (c[k[0]] === 1 ? k[1] : k[2]); }).join(' · ');
+      },
       more: 'Show more', less: 'Show less',
-      cats: ['All', 'Grants', 'IP', 'Alliances', 'Exhibitions', 'Certification', 'Products', 'Press'],
+      cats: ['All', 'Grants', 'IP', 'Partnerships', 'Exhibitions', 'Certification', 'Products', 'Press'],
       total: function (n) { return '<b>' + n + '</b> ' + (n === 1 ? 'post' : 'posts'); },
-      empty: 'No posts yet.', prevPage: 'Previous page', nextPage: 'Next page', none: 'None',
+      empty: 'No posts yet.', prevPage: 'Previous page', nextPage: 'Next page', none: 'None', source: 'Read the article',
       newsTitle: 'News | Health Cloud',
       required: 'Please check the required fields.',
       sendFail: 'Sending failed. Please try again later or contact us by email.',
@@ -45,7 +50,6 @@
         title: 'Contact us', close: 'Close', intro: 'We will review your message and get back to you.',
         company: 'Company', companyPh: 'Company or organization', name: 'Name', namePh: 'Your name',
         phone: 'Phone', phonePh: '+82 10-0000-0000', email: 'Email',
-        sol: 'Solutions of interest', solNote: '(select all that apply)', beauty: '3-in-1 Beauty Care', wellness: 'Wellness Through Capillaries',
         message: 'Message', messagePh: 'Tell us about your goals, expected scale, timeline and so on.',
         consent: 'I agree to the collection and use of my personal information.', privMore: 'Details',
         privItems: 'Collected', privItemsV: 'Company, name, phone, email and message',
@@ -64,8 +68,7 @@
     // 직접 운영하는 수신 서버가 있을 때만 사용 (JSON POST). web3formsKey가 있으면 그쪽이 우선합니다.
     inquiryEndpoint: '',
     // 둘 다 비어 있으면 메일 클라이언트(mailto)로 대체합니다.
-    inquiryEmail: 'shchoi@h-cloud.co.kr',
-    newsDefaultImage: BASE + 'assets/img/hero-lineup.jpg'
+    inquiryEmail: 'teo.lim@h-cloud.co.kr'
   };
 
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
@@ -348,11 +351,6 @@
     '<label class="field"><span>' + m.phone + '<span class="req">*</span></span><input name="phone" type="tel" required placeholder="' + m.phonePh + '"></label>' +
     '<label class="field"><span>' + m.email + '<span class="req">*</span></span><input name="email" type="email" required placeholder="name@company.com"></label>' +
     '</div>' +
-    '<div><div class="field-label" style="margin-bottom:8px">' + m.sol + ' <small>' + m.solNote + '</small></div>' +
-    '<div class="sol-pick">' +
-    '<label><input type="checkbox" name="solution" value="' + m.beauty + '">' + m.beauty + '</label>' +
-    '<label><input type="checkbox" name="solution" value="' + m.wellness + '">' + m.wellness + '</label>' +
-    '</div></div>' +
     '<input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">' +
     '<label class="field">' + m.message + '<textarea name="message" rows="4" placeholder="' + m.messagePh + '"></textarea></label>' +
     '<div><div class="consent-row">' +
@@ -384,13 +382,10 @@
     var errorEl = $('[data-error]', modal);
     var submitBtn = $('.inq-submit', modal);
 
-    function open(preset) {
+    function open() {
       box.classList.remove('sent');
       form.reset();
       errorEl.classList.remove('show');
-      if (preset) {
-        $$('input[name="solution"]', form).forEach(function (c) { c.checked = c.value === preset; });
-      }
       modal.classList.add('open');
       document.body.classList.add('no-scroll');
       setTimeout(function () { var f = $('input[name="company"]', form); if (f) f.focus(); }, 50);
@@ -400,7 +395,7 @@
       document.body.classList.remove('no-scroll');
     }
     openers.forEach(function (b) {
-      b.addEventListener('click', function (e) { e.preventDefault(); open(b.getAttribute('data-open-inquiry')); });
+      b.addEventListener('click', function (e) { e.preventDefault(); open(); });
     });
     $$('[data-close]', modal).forEach(function (b) { b.addEventListener('click', close); });
     modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
@@ -427,7 +422,6 @@
         name: form.name.value.trim(),
         phone: form.phone.value.trim(),
         email: form.email.value.trim(),
-        solutions: $$('input[name="solution"]:checked', form).map(function (c) { return c.value; }),
         message: form.message.value.trim(),
         page: location.pathname + location.hash,
         sentAt: new Date().toISOString()
@@ -453,7 +447,6 @@
           '담당자': data.name,
           '연락처': data.phone,
           '이메일': data.email,
-          '관심 솔루션': data.solutions.join(', ') || '-',
           '문의 내용': data.message || '-',
           '접수 페이지': data.page
         }, function (res) { return res.ok && res.json && res.json.success; });
@@ -466,7 +459,6 @@
           '담당자: ' + data.name,
           '연락처: ' + data.phone,
           '이메일: ' + data.email,
-          '관심 솔루션: ' + (data.solutions.join(', ') || '-'),
           '',
           '문의 내용:',
           data.message || '-'
@@ -496,9 +488,9 @@
       var num = $('[data-proof-num]', card), sub = $('[data-proof-sub]', card);
       if (num) num.textContent = items.length;
       if (sub) {
-        var pat = items.filter(function (i) { return i.type === 'patent'; }).length;
-        var cr = items.filter(function (i) { return i.type === 'copyright'; }).length;
-        sub.textContent = T.ipSub(pat, cr);
+        var counts = {};
+        items.forEach(function (i) { counts[i.type] = (counts[i.type] || 0) + 1; });
+        sub.textContent = T.ipSub(counts);
       }
       list.innerHTML = items.slice(0, VISIBLE).map(row).join('');
       var rest = items.slice(VISIBLE);
@@ -611,9 +603,12 @@
       $('[data-d-cat2]', detailHead).textContent = post.cat;
       $('[data-d-date]', detailHead).textContent = post.date;
       $('[data-d-title]', detailHead).textContent = post.title;
-      var img = $('[data-d-image]', detailSec);
-      img.src = post.image || CONFIG.newsDefaultImage; img.alt = post.title;
-      $('[data-d-body]', detailSec).innerHTML = (post.body || []).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+      var img = $('[data-d-image]', detailSec), cover = img.parentNode;
+      if (post.image) { img.src = post.image; img.alt = post.title; cover.hidden = false; }
+      else { img.removeAttribute('src'); img.alt = ''; cover.hidden = true; }
+      var bodyHtml = (post.body || []).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+      if (post.link) bodyHtml += '<p class="source"><a class="text-link" href="' + esc(post.link) + '" target="_blank" rel="noopener">' + T.source + ' →</a></p>';
+      $('[data-d-body]', detailSec).innerHTML = bodyHtml;
       var o = $('[data-d-older]', detailSec), nw = $('[data-d-newer]', detailSec);
       o.href = older ? '#post-' + older.id : '#'; o.classList.toggle('disabled', !older); $('.t', o).textContent = older ? older.title : T.none;
       nw.href = newer ? '#post-' + newer.id : '#'; nw.classList.toggle('disabled', !newer); $('.t', nw).textContent = newer ? newer.title : T.none;
@@ -695,7 +690,7 @@
     update();
   }
 
-  var REVEAL_SEL = '.section-head, .sol-card, .product, .proof-title, .proof-card, .allies-head, .news-list, .mode-card, .item-grid, .step, .index-card, .ops-group, .next-card, .careers-empty, .contact .h-cta, .contact .lead, .contact .btn';
+  var REVEAL_SEL = '.section-head, .sol-card, .product, .proof-card, .allies-head, .news-list, .mode-card, .item-grid, .step, .index-card, .ops-group, .next-card, .careers-empty, .contact .h-cta, .contact .lead, .contact .btn';
 
   function initReveal() {
     if (!('IntersectionObserver' in window)) return;
