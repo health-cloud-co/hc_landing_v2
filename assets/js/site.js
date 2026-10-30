@@ -267,7 +267,7 @@
     var navPrev = $('[data-modes-prev]', root), navNext = $('[data-modes-next]', root), navIdx = $('[data-modes-idx]', root);
     var items = $$('.item-grid .item', root);
     var mq = window.matchMedia('(max-width: 759px)');
-    var n = slides.length, tab = 0, prog = 0, hover = false, touching = false, inView = true;
+    var n = slides.length, tab = 0, prog = 0, hover = false, touching = false;
     var md = null, moved = false, progTimer = null, programmatic = false;
     var S = slides.map(function (sl) {
       var shots = $$('.mode-shot', sl), segs = $('[data-mode-segs]', sl), sb = $('[data-mode-sb]', sl);
@@ -388,18 +388,11 @@
       track.addEventListener('pointerup', up);
       track.addEventListener('pointercancel', up);
       track.addEventListener('click', function (e) { if (moved) { e.stopPropagation(); e.preventDefault(); } }, true);
-      if (window.IntersectionObserver) {
-        new IntersectionObserver(function (en) {
-          var v = en[0].isIntersecting;
-          if (v && !inView) { S.forEach(function (st) { st.idx = 0; }); prog = 0; render(); }
-          inView = v;
-        }, { threshold: 0.35 }).observe(track);
-      }
     }
 
     setInterval(function () {
       var st = S[tab]; if (!st || st.shots.length < 2) return;
-      if (hover || touching || md || document.hidden || !inView) return;
+      if (hover || touching || md || document.hidden) return;
       prog += 0.2 / 3;
       if (prog >= 1) { st.idx = (st.idx + 1) % st.shots.length; prog = 0; }
       renderShots(tab);
@@ -786,13 +779,16 @@
 
   function initReveal() {
     if (!('IntersectionObserver' in window)) return;
+    // Desktop waits until 10% of a block is 10% up from the bottom edge. A phone fires once 40px of it has entered,
+    // whatever its height, so a tall card does not sit empty while a fast scroll waits for its 10%
+    var phone = window.matchMedia && window.matchMedia('(max-width: 860px)').matches;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         e.target.classList.add('is-in');
         io.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    }, phone ? { rootMargin: '0px 0px -40px 0px', threshold: 0 } : { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
     $$(REVEAL_SEL).forEach(function (el) {
       // Hidden blocks and inactive 3-in-1 slides stay as they are; a block moves as a whole
       if (el.closest('[hidden], .mode-slide:not(.active)') || el.parentElement.closest(REVEAL_SEL)) return;
