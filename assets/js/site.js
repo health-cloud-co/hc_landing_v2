@@ -192,14 +192,16 @@
       if (slides.length < 2) {
         // One image: keep the control row for the shared hero rhythm, but the arrows do nothing and look it
         $$('.ghost', root).forEach(function (g) { g.parentNode.removeChild(g); });
-        $$('.slider-arrows button', root).forEach(function (b) { b.disabled = true; });
-        var one = $('.slider-counter', root); if (one) one.textContent = '01 / 01';
+        $$('[data-prev], [data-next]', root).forEach(function (b) { b.disabled = true; });
+        var one = $('.slider-counter, [data-counter]', root); if (one) one.textContent = '01 / 01';
         return;
       }
       var dotsWrap = $('.slider-dots', root);
-      var counter = $('.slider-counter', root);
+      var counter = $('.slider-counter, [data-counter]', root);
+      // Product cards (data-slider="manual") only move on click; the hero keeps its 5s auto-advance
+      var auto = root.getAttribute('data-slider') !== 'manual';
       var i = 0, timer = null, paused = false;
-      var dots = slides.map(function (_, k) {
+      var dots = !dotsWrap ? [] : slides.map(function (_, k) {
         var b = document.createElement('button');
         b.type = 'button'; b.setAttribute('aria-label', T.image(k + 1));
         b.addEventListener('click', function () { go(k); });
@@ -213,7 +215,7 @@
         dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
         if (counter) counter.textContent = pad(i + 1) + ' / ' + pad(slides.length);
       }
-      function start() { stop(); timer = setInterval(function () { if (!paused) go(i + 1); }, 5000); }
+      function start() { stop(); if (auto) timer = setInterval(function () { if (!paused) go(i + 1); }, 5000); }
       function stop() { if (timer) clearInterval(timer); timer = null; }
       $('[data-prev]', root).addEventListener('click', function () { go(i - 1); start(); });
       $('[data-next]', root).addEventListener('click', function () { go(i + 1); start(); });
@@ -559,8 +561,12 @@
     var data = window.HC_PROOF;
     if (!root || !data) return;
     var VISIBLE = 4;
-    function row(it) {
-      return '<div class="proof-item"><span class="tag ' + esc(it.type || '') + '">' + esc(it.tag || '') + '</span>' +
+    // Grants hang off a vertical rail: the year prints once per group (cont = same year as the row above)
+    function row(it, cont) {
+      var tl = it.type === 'grant';
+      return '<div class="proof-item' + (tl ? ' tl' + (cont ? '' : ' first') : '') + '">' +
+        (tl ? '<span class="yr">' + (cont ? '' : esc(it.tag || '')) + '</span>'
+            : '<span class="tag ' + esc(it.type || '') + '">' + esc(it.tag || '') + '</span>') +
         '<span class="name">' + esc(it.name || '') + '</span>' +
         (it.ref ? '<span class="ref">' + esc(it.ref) + '</span>' : '') + '</div>';
     }
@@ -576,9 +582,10 @@
         items.forEach(function (i) { counts[i.type] = (counts[i.type] || 0) + 1; });
         sub.textContent = T.ipSub(counts);
       }
-      list.innerHTML = items.slice(0, VISIBLE).map(row).join('');
+      var rows = items.map(function (it, k) { return row(it, k > 0 && items[k - 1].tag === it.tag); });
+      list.innerHTML = rows.slice(0, VISIBLE).join('');
       var rest = items.slice(VISIBLE);
-      inner.innerHTML = rest.map(row).join('');
+      inner.innerHTML = rows.slice(VISIBLE).join('');
       if (!rest.length) card.classList.add('nomore');
       renders.push(function () {
         card.classList.toggle('open', open);
@@ -775,7 +782,7 @@
   }
 
   // The contact CTA at the foot of every page stays visible: it must never read as missing before a scroll
-  var REVEAL_SEL = '.section-head, .sol-card, .product, .proof-card, .allies-head, .news-list, .mode-card, .item-grid, .step, .index-card, .ops-group, .careers-empty';
+  var REVEAL_SEL = '.section-head, .sol-band, .product, .proof-card, .allies-head, .news-list, .mode-card, .item-grid, .step, .index-card, .ops-group, .careers-empty';
 
   function initReveal() {
     if (!('IntersectionObserver' in window)) return;

@@ -8,7 +8,7 @@ window.HC_NEWS = [
     image: '../assets/img/mou-geodia.jpg',
     link: 'https://www.mt.co.kr/industry/2026/10/14/2026101414173034485',
     body: [
-      'On 14 October 2026 we signed a memorandum of understanding with Ziodia, an in-vitro diagnostics device company, to link aesthetic optical devices with AI and software services and build on each other’s strengths.',
+      'On 14 October 2026 we signed a memorandum of understanding with ZIODIA Co., Ltd., an in-vitro diagnostics device company, to link aesthetic optical devices with AI and software services and build on each other’s strengths.',
       'The two companies will connect aesthetic optical devices with an AI-based software platform, cooperate on linking other healthcare devices with AI and software, and pursue new business and joint R&D. Combining Ziodia’s optical measurement hardware with Health Cloud’s data and platform capabilities, the partners plan an integrated solution that turns measurements into personalized care services.'
     ]
   },

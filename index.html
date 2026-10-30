@@ -39,8 +39,8 @@
           <div class="nav-drop" data-drop>
             <button type="button" aria-haspopup="true" aria-expanded="false">솔루션<span class="caret">▾</span></button>
             <div class="nav-menu"><div class="nav-menu-inner">
-              <a href="solution-beauty.html"><i class="chip blue"></i><span><b>올인원 뷰티</b><span class="desc">BEAUTY</span></span></a>
-              <a href="solution-wellness.html"><i class="chip red"></i><span><b>모세혈관 웰니스</b><span class="desc">WELLNESS</span></span></a>
+              <a href="solution-beauty.html"><i class="chip blue"></i><span><b>뷰티</b><span class="desc">피부 · 피부톤 · 두피 분석</span></span></a>
+              <a href="solution-wellness.html"><i class="chip red"></i><span><b>웰니스</b><span class="desc">모세혈관 · 생활습관 분석</span></span></a>
             </div></div>
           </div>
           <a href="news.html">최신 활동</a>
@@ -84,31 +84,34 @@
           <h2 class="h-section">어떤 솔루션이 필요하세요?</h2>
         </div>
       </div>
-      <!-- 카드 이미지는 각 솔루션 페이지 히어로 슬라이더의 첫 장과 같은 파일을 사용. 히어로 첫 장을 바꾸면 여기도 함께 교체 -->
-      <div class="dual">
-        <a href="solution-beauty.html" class="sol-card">
-          <figure>
-            <img src="assets/img/beauty-dermareader-dock.jpg" alt="충전 거치대에 놓인 DERMA READER 디바이스와 앱 시작 화면을 띄운 스마트폰">
-            <span class="tag blue">BEAUTY</span>
-          </figure>
-          <div class="body">
-            <h3>올인원 뷰티 솔루션</h3>
-            <p>피부 · 피부톤 · 두피를 하나의 디바이스로 촬영하고, 온디바이스 AI로 분석합니다.<br>뷰티 브랜드와 유통 파트너를 위한 통합 솔루션.</p>
-            <div class="foot"><span>솔루션 및 제품 보기</span><span class="arrow-box plain">→</span></div>
-          </div>
-        </a>
-        <a href="solution-wellness.html" class="sol-card">
-          <figure>
-            <img src="assets/img/hero-wellness.jpg" alt="CARNA 모세혈관 측정 기기와 Capillyzer 앱 분석 화면">
-            <span class="tag red">WELLNESS</span>
-          </figure>
-          <div class="body">
-            <h3>모세혈관 웰니스 솔루션</h3>
-            <p>손끝 모세혈관 이미지로 혈관 상태를 점수와 지표로 보여줍니다.<br>건강기능식품 브랜드와 약국 · 돌봄 현장을 위한 데이터 기반 상담 도구.</p>
-            <div class="foot"><span>솔루션 및 제품 보기</span><span class="arrow-box plain">→</span></div>
-          </div>
-        </a>
-      </div>
+      <!-- 띠 사진은 각 솔루션 페이지 히어로 슬라이더의 첫 장과 같은 파일을 사용. 히어로 첫 장을 바꾸면 여기도 함께 교체.
+           띠 안의 선 아이콘은 Lucide(https://lucide.dev, ISC 라이선스) scan-face · contrast · user-round-search · fingerprint · clipboard-list · message-square-text -->
+    </div>
+    <div class="sol-bands">
+      <a class="sol-band white" href="solution-beauty.html" aria-labelledby="sol-beauty">
+        <div class="sol-media">
+          <img src="assets/img/beauty-dermareader-dock.jpg" alt="충전 거치대에 놓인 DERMA READER 디바이스와 앱 시작 화면을 띄운 스마트폰">
+        </div>
+        <div class="sol-copy">
+          <div class="eyebrow"><i class="chip blue"></i>BEAUTY</div>
+          <h3 id="sol-beauty">뷰티 솔루션</h3>
+          <p>하나의 디바이스로 촬영하고 온디바이스 AI로 분석합니다. 뷰티 브랜드와 유통 파트너를 위한 통합 솔루션.</p>
+          <div class="sol-icons"><div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2" /> <path d="M17 3h2a2 2 0 0 1 2 2v2" /> <path d="M21 17v2a2 2 0 0 1-2 2h-2" /> <path d="M7 21H5a2 2 0 0 1-2-2v-2" /> <path d="M8 14s1.5 2 4 2 4-2 4-2" /> <path d="M9 9h.01" /> <path d="M15 9h.01" /></svg><b>피부</b><span>피지 · 주름 · 민감성 등 7개 항목</span></div><div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M12 18a6 6 0 0 0 0-12v12z" /></svg><b>피부톤</b><span>4가지 유형 판정</span></div><div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="8" r="5" /> <path d="M2 21a8 8 0 0 1 10.434-7.62" /> <circle cx="18" cy="18" r="3" /> <path d="m22 22-1.9-1.9" /></svg><b>두피 · 모발</b><span>모발 굵기 · 탈모 유형 등 4개 항목</span></div></div>
+          <span class="sol-link">솔루션 및 제품 보기<span class="arrow-box plain">→</span></span>
+        </div>
+      </a>
+      <a class="sol-band flip" href="solution-wellness.html" aria-labelledby="sol-wellness">
+        <div class="sol-media">
+          <img src="assets/img/hero-wellness.jpg" alt="Capillyzer 모세혈관 측정 디바이스와 앱 분석 화면">
+        </div>
+        <div class="sol-copy">
+          <div class="eyebrow"><i class="chip red"></i>WELLNESS</div>
+          <h3 id="sol-wellness">웰니스 솔루션</h3>
+          <p>손끝 모세혈관 이미지로 혈관 상태를 점수와 지표로 보여줍니다. 건강기능식품 브랜드와 약국 · 돌봄 현장을 위한 상담 도구.</p>
+          <div class="sol-icons"><div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" /> <path d="M14 13.12c0 2.38 0 6.38-1 8.88" /> <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02" /> <path d="M2 12a10 10 0 0 1 18-6" /> <path d="M2 16h.01" /> <path d="M21.8 16c.2-2 .131-5.354 0-6" /> <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2" /> <path d="M8.65 22c.21-.66.45-1.32.57-2" /> <path d="M9 6.8a6 6 0 0 1 9 5.2v2" /></svg><b>모세혈관</b><span>손톱주름 촬영, 5가지 지표 점수</span></div><div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg><b>생활습관 문진</b><span>식습관 · 수면 · 심리 등 6개 영역</span></div><div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /> <path d="M13 8H7" /> <path d="M17 12H7" /></svg><b>유형 · 코칭</b><span>웰니스 유형별 맞춤 코칭</span></div></div>
+          <span class="sol-link">솔루션 및 제품 보기<span class="arrow-box plain">→</span></span>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -119,7 +122,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow light"><i class="chip yellow"></i>R&amp;D</div>
-          <h2 class="h-section">다양한 정부 과제 경험,<br>기술 연구개발로 쌓은 노하우</h2>
+          <h2 class="h-section">다양한 정부 과제<br>기술 R&amp;D로 쌓은 노하우</h2>
         </div>
       </div>
       <div class="proof-grid">
@@ -137,7 +140,7 @@
         <div class="proof-card" data-proof-card="grants">
           <div class="proof-head">
             <div class="num" data-proof-num>2</div>
-            <div class="label">2025 과제 수주</div>
+            <div class="label">2023 ~ 2025 과제 수주</div>
           </div>
           <div class="proof-body">
             <div data-proof-list></div>

@@ -28,9 +28,17 @@ window.HC_PROOF = {
     { type: 'copyright', tag: 'Copyright', name: 'WellNow home nursing support service solution', ref: 'C-2021-031537' }
   ],
   grants: [
-    /* Projects won in 2025 only (2026 entries from the project list are excluded). tag is the start year; ref is the agency, role and period. */
-    { type: 'grant', tag: '2025', name: 'Development of MobiliLite, a modular manual walking table with AI-based environment awareness and safety support', ref: 'Ministry of Health and Welfare · Participant (AI/SW) · 2025–2028' },
-    { type: 'grant', tag: '2025', name: 'Field validation of a diabetic foot home-care device and system combining H-PPG blood flow measurement with AI image analysis', ref: 'Gangwon Information & Culture Industry Promotion Agency · Participant (AI/SW) · 2025–2027' }
+    /* Projects won 2023–2025, newest start date first. tag is the start year (the home card groups rows by it); ref is ministry (agency) · program · period.
+       Agencies, programs and periods follow the Oct 2026 project status table. Lead/participant roles are not shown (H-PPG and MobiliLite are Participant (AI/SW) per the 2026 project list; no document states a role for the rest). */
+    { type: 'grant', tag: '2025', name: 'Field validation of a diabetic foot home-care device and system combining H-PPG blood flow measurement with AI image analysis', ref: 'Gangwon Information & Culture Industry Promotion Agency · AI Medical Solution & Device Commercialization Validation Program · 2025.07–2027.12' },
+    { type: 'grant', tag: '2025', name: 'Data processing for medication-analysis algorithms that summarize personal health information, predict conditions and recommend supplements', ref: 'Ministry of Science and ICT (Korea Data Agency) · Data Voucher Program · 2025.06–2025.11' },
+    { type: 'grant', tag: '2025', name: 'Development of a mobile AI nailfold capillaroscopy (NFC) analysis system', ref: 'Ministry of SMEs and Startups (KISED) · Startup-Centered University · 2025.05–2025.12' },
+    { type: 'grant', tag: '2025', name: 'Development of MobiliLite, a modular manual walking table with AI-based environment awareness and safety support', ref: 'Ministry of Health and Welfare (KHIDI) · Assistive Device Commercialization R&D Program · 2025.04–2028.12' },
+    { type: 'grant', tag: '2025', name: 'Development of a precision skin-care solution using AI and sensor fusion', ref: 'Ministry of SMEs and Startups (TIPA) · Regional Innovation Leading Company R&D · 2025.04–2027.03' },
+    { type: 'grant', tag: '2024', name: 'Field validation of a smart-signage cognitive rehabilitation coaching service', ref: 'Ministry of Science and ICT (Gangneung Science & Industry Promotion Agency) · Digital Innovation Global Growth R-Voucher · 2024.07–2024.11' },
+    { type: 'grant', tag: '2024', name: 'Development of a multi-function home healthcare device with AI self-diagnosis', ref: 'Ministry of SMEs and Startups (TIPA) · Regional Specialty Project Legend 50+ · 2024.05–2024.12' },
+    { type: 'grant', tag: '2023', name: 'Early screening of mild cognitive impairment and cognitive rehabilitation exercise service using a dot-pattern digital pen', ref: 'Ministry of SMEs and Startups (TIPA) · Startup Growth Technology Development (Stepping Stone) · 2023.10–2024.08' },
+    { type: 'grant', tag: '2023', name: 'Building an AI training dataset of public speaking', ref: 'Ministry of Science and ICT (NIA) · AI Training Data Construction Program · 2023.06–2023.12' }
   ],
   allies: [
     /* Institutions, hospitals and companies only (no zones, certifications or program names). */

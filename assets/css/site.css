@@ -208,20 +208,40 @@ a.lang-btn:hover { color: var(--white); border-color: var(--white); }
 .hero.blue-accent .subnav a.active { border-bottom-color: var(--blue); }
 .hero.red-accent .subnav a.active { border-bottom-color: var(--red); }
 
-/* ---------- Dual solution cards ---------- */
-.dual { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; }
-.sol-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; background: var(--white); border-radius: var(--radius); overflow: hidden; transition: transform .3s, box-shadow .3s; }
-.sol-card:hover { transform: translateY(-4px); box-shadow: 0 28px 56px -28px rgba(0, 0, 0, .5); color: inherit; }
-.sol-card figure { position: relative; margin: 0; height: 280px; background: #E9EEF2; }
-.sol-card figure img { width: 100%; height: 100%; object-fit: cover; }
-.sol-card figure .tag { position: absolute; left: 0; bottom: 0; font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--white); padding: 10px 16px; }
+/* ---------- Home solutions: one full-width band per solution ---------- */
+/* The photo runs to one screen edge and the copy sits on the other half; the second band flips sides.
+   The bands live outside .container so they bleed; the section head stays inside it. */
+.sol-bands { display: flex; flex-direction: column; margin-top: 48px; }
+/* Band height grows with the viewport so the photo keeps a sane aspect (520px at 1280, 680px at 2125). The photo + copy grid
+   stops at 1920px and centres beyond that, so the photo never turns into a strip on ultra-wide screens (worst case 960x680). */
+.sol-band { --band-h: clamp(520px, 32vw, 680px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; max-width: 1920px; margin: 0 auto; min-height: var(--band-h); color: inherit; text-decoration: none; cursor: pointer; }
+.sol-band:hover { color: inherit; }
+.sol-band:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; }
+/* The white band's background still runs edge to edge past 1920px: a huge horizontal box-shadow, clipped to the band's height */
+.sol-band.white { background: var(--white); box-shadow: 0 0 0 100vmax var(--white); clip-path: inset(0 -100vmax); }
+.sol-media { position: relative; min-height: var(--band-h); background: #E9EEF2; overflow: hidden; }
+.sol-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.sol-band:hover .sol-media img { transform: scale(1.03); }
 .tag.blue { background: var(--blue); }
 .tag.red { background: var(--red); }
-.sol-card .body { flex: 1; display: flex; flex-direction: column; padding: 32px 32px 30px; }
-.sol-card h3 { font-size: 26px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 10px; }
-.sol-card p { font-size: 16px; line-height: 1.7; color: var(--ink); margin-bottom: 28px; text-wrap: pretty; }
-.sol-card .foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid rgba(14, 21, 36, .1); }
-.sol-card .foot span { font-size: 15px; font-weight: 700; color: var(--navy); }
+.sol-band.flip .sol-media { order: 2; }
+.sol-copy { display: flex; flex-direction: column; justify-content: center; gap: 22px; padding: 72px 96px; }
+/* Copy on the left (flipped band): once the screen is wider than the container, start the text on the container's
+   left edge so it lines up with the section title. 100% here is the copy column (half the band), so
+   column - container/2 + gutter is exactly where .container content begins. */
+@media (min-width: 861px) { .sol-band.flip .sol-copy { padding-left: max(96px, calc(100% - var(--container) / 2 + var(--gutter))); } }
+.sol-copy .eyebrow { margin-bottom: 0; }
+.sol-copy h3 { font-size: 40px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+.sol-copy p { font-size: 17px; line-height: 1.75; color: var(--ink); text-wrap: pretty; max-width: 520px; }
+/* Three line icons (Lucide) with a word and a sub-line, under a hairline */
+.sol-icons { display: flex; gap: 36px; padding-top: 22px; margin-top: 2px; border-top: 1px solid rgba(14, 21, 36, .18); }
+.sol-icon { display: flex; flex-direction: column; gap: 10px; min-width: 96px; }
+.sol-icon svg { width: 28px; height: 28px; color: var(--navy); }
+.sol-icon b { font-size: 14px; font-weight: 700; color: var(--navy); letter-spacing: -.005em; }
+.sol-icon span { font-size: 12px; font-weight: 500; line-height: 1.5; color: var(--muted-2); }
+.sol-link { display: inline-flex; align-items: center; gap: 12px; align-self: flex-start; min-height: 48px; padding: 0 22px; border: 1px solid var(--navy); font-size: 15px; font-weight: 700; color: var(--navy); transition: background .2s, color .2s; }
+.sol-band:hover .sol-link { background: var(--navy); color: var(--white); }
+.sol-link .arrow-box.plain { color: inherit; }
 
 /* ---------- Proof band ---------- */
 .proof { padding: 88px 0; }
@@ -240,6 +260,15 @@ a.lang-btn:hover { color: var(--white); border-color: var(--white); }
 .proof-item .tag.copyright { color: var(--yellow); }
 html[lang="en"] .proof-item .tag { flex-basis: 74px; }
 .proof-item .tag.grant { color: #FF8A73; }
+/* Grants card: rows hang off a vertical rail; a big dot and the year mark the first row of each year, small dots the rest */
+[data-proof-card="grants"] .proof-body::before { content: ""; position: absolute; left: 32px; top: 0; bottom: 0; width: 2px; background: rgba(255, 255, 255, .12); }
+.proof-item.tl { display: grid; grid-template-columns: 52px minmax(0, 1fr); column-gap: 14px; row-gap: 4px; align-items: baseline; padding: 10px 0; border-top: 0; }
+.proof-item.tl.first { padding-top: 20px; }
+.proof-item.tl.first:first-child { padding-top: 6px; }
+.proof-item.tl .yr { position: relative; grid-row: 1 / 3; padding-left: 20px; font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .02em; color: #FF8A73; }
+.proof-item.tl .yr::before { content: ""; position: absolute; left: 2px; top: .3em; width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+.proof-item.tl.first .yr::before { left: 0; top: .15em; width: 10px; height: 10px; background: #FF8A73; box-shadow: 0 0 0 3px var(--navy-2); }
+.proof-item.tl .name, .proof-item.tl .ref { grid-column: 2; }
 .proof-item .name { flex: 1 1 160px; min-width: 0; font-size: 15px; font-weight: 500; color: var(--white); }
 .proof-item .ref { font-family: var(--mono); font-size: 13px; color: var(--gray); }
 .proof-more { overflow: hidden; max-height: 0; transition: max-height .45s cubic-bezier(.2, .7, .2, 1); }
@@ -562,10 +591,19 @@ html[lang="en"] .proof-item .tag { flex-basis: 74px; }
 
 .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
 .product { display: flex; flex-direction: column; background: var(--white); border-radius: var(--radius); overflow: hidden; }
-.product figure { position: relative; margin: 0; height: 240px; background: #E9EEF2; }
+.product figure { position: relative; margin: 0; height: 340px; background: #E9EEF2; }
 .product figure img { width: 100%; height: 100%; object-fit: cover; }
 .product figure.contain img { object-fit: contain; background: var(--white); padding: 16px; }
 .product figure .tag { position: absolute; left: 0; bottom: 0; font-size: 13px; font-weight: 700; color: var(--white); padding: 10px 16px; }
+.product figure .tag, .product figure .status { z-index: 2; }
+/* Product card slider: same slide stack as the hero, controls folded into one pill at the bottom-right.
+   A single image keeps the pill (01 / 01, arrows dimmed) so every card reads the same. */
+.product figure .card-nav { position: absolute; right: 12px; bottom: 12px; z-index: 2; display: flex; align-items: center; padding: 3px; border-radius: 999px; background: rgba(11, 12, 14, .45); backdrop-filter: blur(6px); }
+.product figure .card-nav button { cursor: pointer; width: 30px; height: 30px; border: 0; border-radius: 50%; font-size: 15px; line-height: 1; color: var(--white); background: transparent; transition: background .2s; }
+.product figure .card-nav button:hover { background: rgba(255, 255, 255, .14); }
+.product figure .card-nav button[disabled] { cursor: default; opacity: .35; }
+.product figure .card-nav button[disabled]:hover { background: transparent; }
+.product figure .card-counter { padding: 0 6px; font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .06em; color: var(--white); }
 .product figure .status { position: absolute; right: 12px; top: 12px; font-size: 12px; font-weight: 700; letter-spacing: .02em; color: var(--ink); background: var(--white); border: 1px solid rgba(14, 21, 36, .18); border-radius: 999px; padding: 5px 11px; }
 .product .body { padding: 28px 28px 32px; display: flex; flex-direction: column; gap: 10px; }
 .product h3 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
@@ -621,6 +659,13 @@ html[lang="en"] .proof-item .tag { flex-basis: 74px; }
 }
 @media (max-width: 860px) {
   .products.one { grid-template-columns: minmax(0, 1fr); }
+  .sol-bands { margin-top: 36px; }
+  .sol-band { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .sol-media { min-height: 0; height: 300px; }
+  .sol-band.flip .sol-media { order: 0; }
+  .sol-copy { gap: 16px; padding: 32px var(--gutter) 44px; }
+  .sol-copy h3 { font-size: 30px; }
+  .sol-icons { flex-wrap: wrap; gap: 20px 28px; }
   :root { --gutter: 20px; }
   .nav-toggle { display: inline-flex; }
   .nav { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; flex-direction: column; align-items: stretch; gap: 0; background: var(--navy); border-bottom: 1px solid rgba(255, 255, 255, .12); box-shadow: 0 24px 48px -20px rgba(14, 21, 36, .6); padding: 8px var(--gutter) 24px; }
@@ -732,11 +777,8 @@ html[lang="en"] .proof-item .tag { flex-basis: 74px; }
 .js-reveal .reveal.is-in > figure img { scale: 1; }
 
 /* Hover feedback */
-.sol-card figure { overflow: hidden; }
-.sol-card .body h3 { transition: color .25s; }
-.sol-card:hover .body h3 { color: var(--blue); }
 .btn span, .arrow-box, .news-row .go { transition: translate .25s; }
-.btn:hover span, .sol-card:hover .arrow-box, .news-row:hover .go { translate: 6px 0; }
+.btn:hover span, .sol-band:hover .arrow-box, .news-row:hover .go { translate: 6px 0; }
 /* transform, not translate: the reveal holds translate on these cards */
 
 /* News: a short list still fills tall screens; the white section grows and the footer stays at the bottom */
@@ -750,8 +792,7 @@ body[data-page="news"] [data-news-list]:not([hidden]), body[data-page="news"] [d
   /* flex column + auto margins would shrink the crumbs container to its content and centre it */
   [data-page="beauty"] .hero > .container, [data-page="wellness"] .hero > .container { width: 100%; }
   .hero-grid.solution { padding-top: 24px; padding-bottom: 40px; }
-  [data-page="home"] #solution { padding: 80px 0; }
-  [data-page="home"] .sol-card figure { height: 260px; }
+  [data-page="home"] #solution { padding: 80px 0 0; }
 }
 
 
@@ -774,6 +815,7 @@ body[data-page="news"] [data-news-list]:not([hidden]), body[data-page="news"] [d
 .scan-replay span { font-size: 14px; }
 .scan-replay:hover { color: var(--white); }
 @media (max-width: 640px) {
+  .product figure { height: 280px; }
   .scan-grid { gap: 5px; }
   .scan-status { flex-wrap: wrap; gap: 14px; }
   .scan-legend { gap: 6px 14px; font-size: 12px; }
