@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://h-cloud.co.kr/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/news.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news.html"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/news.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news.html"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/solution-beauty.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/solution-beauty.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/solution-beauty.html"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/solution-beauty.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/solution-beauty.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/solution-beauty.html"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/solution-wellness.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/solution-wellness.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/solution-wellness.html"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/solution-wellness.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/solution-wellness.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/solution-wellness.html"/>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+</urlset>
