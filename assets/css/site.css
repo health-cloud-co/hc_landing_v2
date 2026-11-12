@@ -620,6 +620,14 @@ html[lang="en"] .proof-item .tag { flex-basis: 74px; }
 .product ul { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .product ul li { font-size: 13px; font-weight: 600; color: var(--navy); background: var(--bg); padding: 6px 10px; }
 .products.one { grid-template-columns: minmax(0, calc(50% - 12px)); }
+/* Store links at the foot of a product card; body grows so the row sits on the card's bottom edge */
+.product .body { flex: 1; }
+.product .store-row { margin-top: auto; padding-top: 14px; }
+.product .stores { display: flex; flex-wrap: wrap; gap: 8px; }
+.product .store { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 14px; font-weight: 700; letter-spacing: -.01em; color: var(--white); background: var(--navy); border-radius: var(--radius); padding: 9px 14px 9px 11px; text-decoration: none; transition: background .2s; }
+.product .store:hover { background: var(--navy-3); }
+.product .store:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.product .store svg { width: 18px; height: 18px; flex: none; }
 
 
 
