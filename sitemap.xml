@@ -49,4 +49,56 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/solution-wellness.html"/>
     <lastmod>2026-10-30</lastmod>
   </url>
+  <!-- news:start (tools/build-news.js 가 채웁니다) -->
+  <url>
+    <loc>https://h-cloud.co.kr/news/5.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/5.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/5.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/news/5.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/5.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/5.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/news/4.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/4.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/4.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/news/4.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/4.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/4.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/news/3.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/3.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/3.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/news/3.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/3.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/3.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/news/2.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/2.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/2.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/news/2.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/2.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/2.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/news/1.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/1.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/1.html"/>
+  </url>
+  <url>
+    <loc>https://h-cloud.co.kr/en/news/1.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://h-cloud.co.kr/news/1.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://h-cloud.co.kr/en/news/1.html"/>
+  </url>
+  <!-- news:end -->
 </urlset>

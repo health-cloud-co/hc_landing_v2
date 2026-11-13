@@ -1,4 +1,5 @@
 /* English news data for the en/ pages. Keep entries in sync with news-data.js (same id, date, image).
+   After editing, run `node tools/build-news.js` from the repo root to regenerate the post pages and sitemap.xml.
    cat is one of 'Grants' | 'IP' | 'Partnerships' | 'Exhibitions' | 'Certification' | 'Products' | 'Press'.
    image paths are relative to the en/ pages (../assets/img/...); leave it out to show the post without an image; link adds a source link under the body. */
 /* images (an array) replaces image when a post has several photos; they are shown uncropped, one after another. */
