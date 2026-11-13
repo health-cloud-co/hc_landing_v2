@@ -1,7 +1,17 @@
 /* English news data for the en/ pages. Keep entries in sync with news-data.js (same id, date, image).
    cat is one of 'Grants' | 'IP' | 'Partnerships' | 'Exhibitions' | 'Certification' | 'Products' | 'Press'.
    image paths are relative to the en/ pages (../assets/img/...); leave it out to show the post without an image; link adds a source link under the body. */
+/* images (an array) replaces image when a post has several photos; they are shown uncropped, one after another. */
 window.HC_NEWS = [
+  {
+    id: 5, cat: 'Partnerships', date: '2026.11',
+    title: 'MOU signed with PSPLUS: aesthetic and digital healthcare systems partnership',
+    images: ['../assets/img/mou-psplus.jpg', '../assets/img/mou-psplus-signing.jpg'],
+    body: [
+      'On 13 November 2026 we signed a memorandum of understanding with PSPLUS Co., Ltd. to link aesthetic and digital healthcare systems with AI and software services and build on each other’s strengths.',
+      'The partnership puts Health Cloud’s optical skin and capillary devices and its analysis AI and software into PSPLUS’s kiosks, and the two companies also plan to work together on certification, new business, and the R&D and commercialization of combined solutions.'
+    ]
+  },
   {
     id: 4, cat: 'Partnerships', date: '2026.10',
     title: 'MOU signed with Ziodia: skin and scalp diagnostic device partnership',

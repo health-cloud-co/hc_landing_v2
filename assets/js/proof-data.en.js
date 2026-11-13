@@ -53,6 +53,7 @@ window.HC_PROOF = {
     /* Partner companies (MOUs and joint business). */
     { name: 'Ziodia', logo: '../assets/img/allies/ziodia.png' },
     { name: 'GenieTech', logo: '../assets/img/allies/genie-tech.png' },
+    { name: 'PSPLUS', logo: '../assets/img/allies/psplus.png' },
     { name: 'Miracle Healthcare', logo: '../assets/img/allies/miracle-healthcare.png' },
     { name: 'HMB', logo: '../assets/img/allies/hmb.png' },
     { name: 'FaceBloom', logo: '../assets/img/allies/facebloom.png' }

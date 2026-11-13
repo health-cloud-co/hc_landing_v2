@@ -59,6 +59,8 @@ window.HC_PROOF = {
        지오디아는 홈페이지 푸터 로고, 미라클헬스케어와 페이스블룸은 흰색 헤더 로고의 글자를 네이비로 바꾼 파일입니다. */
     { name: '지오디아', logo: 'assets/img/allies/ziodia.png' },
     { name: '지니테크', logo: 'assets/img/allies/genie-tech.png' },
+    /* 피에스플러스는 공식 홈페이지(psplus.co.kr) 헤더 로고(2026.11 기준). */
+    { name: '피에스플러스', logo: 'assets/img/allies/psplus.png' },
     { name: '미라클헬스케어', logo: 'assets/img/allies/miracle-healthcare.png' },
     { name: 'HMB', logo: 'assets/img/allies/hmb.png' },
     { name: '페이스블룸', logo: 'assets/img/allies/facebloom.png' }

@@ -688,8 +688,18 @@
       $('[data-d-date]', detailHead).textContent = post.date;
       $('[data-d-title]', detailHead).textContent = post.title;
       var img = $('[data-d-image]', detailSec), cover = img.parentNode;
-      if (post.image) { img.src = post.image; img.alt = post.title; cover.hidden = false; }
+      // post.images (several photos) shows each one uncropped; post.image keeps the single cropped cover
+      var imgs = post.images && post.images.length ? post.images : (post.image ? [post.image] : []);
+      $$('.cover.extra', detailSec).forEach(function (n) { n.parentNode.removeChild(n); });
+      cover.classList.toggle('full', !!(post.images && post.images.length));
+      if (imgs.length) { img.src = imgs[0]; img.alt = post.title; cover.hidden = false; }
       else { img.removeAttribute('src'); img.alt = ''; cover.hidden = true; }
+      var after = cover;
+      imgs.slice(1).forEach(function (src) {
+        var d = document.createElement('div'), im = document.createElement('img');
+        d.className = 'cover full extra'; im.src = src; im.alt = post.title; d.appendChild(im);
+        after.parentNode.insertBefore(d, after.nextSibling); after = d;
+      });
       var bodyHtml = (post.body || []).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
       if (post.link) bodyHtml += '<p class="source"><a class="text-link" href="' + esc(post.link) + '" target="_blank" rel="noopener">' + T.source + ' →</a></p>';
       $('[data-d-body]', detailSec).innerHTML = bodyHtml;
